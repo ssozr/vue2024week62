@@ -23,7 +23,7 @@
         </div>
       </div>
       <p class="mt-5 mb-3 text-muted">
-        &copy; 2021~∞ - 六角學院
+        &copy; 2021~∞ - 六角學院2
       </p>
     </div>
 </template>
