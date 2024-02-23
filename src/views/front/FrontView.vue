@@ -7,6 +7,6 @@
         <RouterLink to="/products">課程列表</RouterLink>|
         <RouterLink to="/cart">購物車</RouterLink> |
         <RouterLink to="/order">訂單</RouterLink>|
-        <RouterLink to="/admin/">進入後台</RouterLink>
+        <RouterLink to="/login">登入後台</RouterLink>
     </nav>
 </template>
