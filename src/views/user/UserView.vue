@@ -7,7 +7,7 @@
         <RouterLink to="voucher">優惠券管理</RouterLink>|
         <RouterLink to="/">返回首頁</RouterLink>
     </nav>
-    <RouterView></RouterView>
+    <RouterView v-if="show"></RouterView>
 </template>
 
 <script>
@@ -15,6 +15,11 @@ import axios from 'axios'
 const { VITE_APP_API_URL } = import.meta.env
 
 export default {
+  data () {
+    return {
+      show: false
+    }
+  },
   methods: {
     check () {
       const token = document.cookie.replace(
@@ -25,6 +30,7 @@ export default {
       axios.post(`${VITE_APP_API_URL}/v2/api/user/check`)
         .then((res) => {
           console.log('驗證成功', res.data.success)
+          this.show = true
         })
         .catch(() => {
           alert('請先登入')

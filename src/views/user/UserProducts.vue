@@ -49,11 +49,8 @@
           </tr>
         </tbody>
       </table>
-      <!-- <Pagination
-      :pages="pagination"
-      @change-page="changePage"
-      ></Pagination>
-      <Loading v-model:active="isLoading"/> -->
+      <Pagination :pagination="pagination" @change-page="changePage"></Pagination>
+      <Loading v-model:active="isLoading"/>
   </div>
     <!-- Modal -->
     <div id="productModal" ref="productModal" class="modal fade" tabindex="-1" aria-labelledby="productModalLabel"
@@ -186,10 +183,10 @@
 </template>
 
 <script>
-// import Loading from 'vue-loading-overlay'
-// import 'vue-loading-overlay/dist/css/index.css'
-// import Swal from 'sweetalert2'
-// import Pagination from '@/components/PaginationView.vue'
+import Loading from 'vue-loading-overlay'
+import 'vue-loading-overlay/dist/css/index.css'
+import Swal from 'sweetalert2'
+import Pagination from '@/components/PaginationView.vue'
 import { Modal } from 'bootstrap'
 import axios from 'axios'
 const { VITE_APP_API_URL, VITE_APP_API_NAME } = import.meta.env
@@ -223,7 +220,8 @@ export default {
     }
   },
   components: {
-    // Pagination,
+    Loading,
+    Pagination
   },
   methods: {
     getProducts (page = 1) {
@@ -233,6 +231,7 @@ export default {
           this.isLoading = false
           this.products = res.data.products
           this.pagination = res.data.pagination
+          console.log(this.pagination)
         })
         .catch((err) => {
           alert(err.data.message).error(err)
@@ -278,7 +277,7 @@ export default {
       const id = this.delId
       axios.delete(`${VITE_APP_API_URL}/v2/api/${VITE_APP_API_NAME}/admin/product/${id}`)
         .then((res) => {
-        //   Swal.fire(`${res.data.message}`)
+          Swal.fire(`${res.data.message}`)
           this.delId = ''
           this.delModal.hide()
           this.getProducts()
@@ -296,7 +295,7 @@ export default {
         axios.post(`${VITE_APP_API_URL}/v2/api/${VITE_APP_API_NAME}/admin/product`, { data })
           .then((res) => {
             this.productModal.hide()
-            // Swal.fire(`${res.data.message}`)
+            Swal.fire(`${res.data.message}`)
             this.getProducts()
           })
           .catch((err) => {
@@ -308,7 +307,7 @@ export default {
         axios.put(`${VITE_APP_API_URL}/v2/api/${VITE_APP_API_NAME}/admin/product/${id}`, { data })
           .then((res) => {
             this.productModal.hide()
-            // Swal.fire(`${res.data.message}`)
+            Swal.fire(`${res.data.message}`)
             this.getProducts()
           })
           .catch((err) => {
