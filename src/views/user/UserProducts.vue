@@ -59,7 +59,8 @@
         <div class="modal-content border-0">
           <div class="modal-header bg-dark text-white">
             <h5 id="productModalLabel" class="modal-title">
-              <span>新增產品</span>
+              <span v-if="changeModal">新增產品</span>
+              <span v-else>編輯產品</span>
             </h5>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
@@ -227,11 +228,9 @@ export default {
     getProducts (page = 1) {
       axios.get(`${VITE_APP_API_URL}/v2/api/${VITE_APP_API_NAME}/admin/products/?page=${page}`)
         .then((res) => {
-          console.log(res)
           this.isLoading = false
           this.products = res.data.products
           this.pagination = res.data.pagination
-          console.log(this.pagination)
         })
         .catch((err) => {
           alert(err.data.message).error(err)
@@ -294,8 +293,11 @@ export default {
         const data = { ...this.modal }
         axios.post(`${VITE_APP_API_URL}/v2/api/${VITE_APP_API_NAME}/admin/product`, { data })
           .then((res) => {
-            this.productModal.hide()
+            if (res.success === true) {
+              this.productModal.hide()
+            }
             Swal.fire(`${res.data.message}`)
+            console.log(res)
             this.getProducts()
           })
           .catch((err) => {
@@ -306,7 +308,9 @@ export default {
         const data = { ...this.modal }
         axios.put(`${VITE_APP_API_URL}/v2/api/${VITE_APP_API_NAME}/admin/product/${id}`, { data })
           .then((res) => {
-            this.productModal.hide()
+            if (res.success === true) {
+              this.productModal.hide()
+            }
             Swal.fire(`${res.data.message}`)
             this.getProducts()
           })

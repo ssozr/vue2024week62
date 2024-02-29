@@ -1,11 +1,10 @@
 <template>
-    <h1>這是後台</h1>
     <nav>
         <RouterLink to="article">文章管理</RouterLink>|
         <RouterLink to="order">訂單管理</RouterLink> |
         <RouterLink to="products">課程管理</RouterLink>|
         <RouterLink to="voucher">優惠券管理</RouterLink>|
-        <RouterLink to="/">返回首頁</RouterLink>
+        <RouterLink to="/">登出</RouterLink>
     </nav>
     <RouterView v-if="show"></RouterView>
 </template>
