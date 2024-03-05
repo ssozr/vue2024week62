@@ -2,6 +2,10 @@
 @import "./variables";
 @import "bootstrap/scss/bootstrap";
 
-@import "./style";
+@import "./index-article.scss";
+@import "./base.scss";
 @import "./layout.scss";
-@import "./index.scss"
+@import "./index.scss";
+@import "./class.scss";
+@import "./articles.scss";
+@import "./article.scss"

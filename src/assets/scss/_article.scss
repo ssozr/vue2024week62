@@ -1,0 +1,14 @@
+.article {
+  img {
+    height: 400px;
+    width: 100%;
+    object-fit: cover;
+    object-position:center;
+    @media (max-width: 768px) {
+      height: 200px;
+    }
+  }
+  p {
+    line-height: 1.5;
+  }
+}
