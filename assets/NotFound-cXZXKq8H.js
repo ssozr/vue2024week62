@@ -1,1 +1,0 @@
-import{_ as t,c as o,a as n,w as a,F as s,b as c,r,o as _,d}from"./index-6aoXa4Ci.js";const l={},u=c("h2",null,"網址輸入錯誤",-1);function f(i,m){const e=r("RouterLink");return _(),o(s,null,[u,n(e,{to:"/"},{default:a(()=>[d("回首頁")]),_:1})],64)}const x=t(l,[["render",f]]);export{x as default};

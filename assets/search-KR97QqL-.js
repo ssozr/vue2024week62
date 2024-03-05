@@ -1,0 +1,1 @@
+import{B as a,C as r}from"./index-P1H6muw5.js";const s=a("search",{state:()=>({categoryData:""}),actions:{search(t){this.categoryData=t,r.push("/products")},searchOff(){this.categoryData=""}}});export{s};
