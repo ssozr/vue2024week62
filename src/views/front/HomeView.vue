@@ -55,7 +55,7 @@
     </div>
     <div class="row teacher">
       <div class="col-md-6 p-0 mb-6 mb-md-0">
-        <RouterLink to="teachers">
+        <RouterLink to="products">
           <div class="d-flex justify-content-md-end justify-content-center me-xxl-42 me-xl-30 me-md-3">
             <div class="card border-primary border-3 bg-primary" style="width: 362px;">
               <div class="bg-primary border-primary">
@@ -77,7 +77,7 @@
       </div>
       <div class="col-md-6 p-0">
         <div class="d-flex justify-content-md-start justify-content-center ms-xxl-42 ms-xl-30 ms-md-3">
-          <RouterLink to="teachers">
+          <RouterLink to="products">
             <div class="card border-primary border-3 bg-primary" style="width: 362px;">
               <div class="bg-primary border-primary">
                 <div class="rounded-circle border border-secondary position-relative" style="width: 308px;">
@@ -129,7 +129,7 @@
       <div class="row">
         <h2 class="text-white text-center mt-md-48 mt-15 fs-1 mb-md-6 mb-8">只差最後一步，就可以開始探索自己</h2>
         <div class="d-flex justify-content-center">
-          <RouterLink to="teachers" type="button" class="btn btn-secondary rounded-pill fs-6 text-white px-10 py-3">立即找到您的人生導師</RouterLink>
+          <RouterLink to="products" type="button" class="btn btn-secondary rounded-pill fs-6 text-white px-10 py-3">立即找到您的人生導師</RouterLink>
         </div>
       </div>
     </div>

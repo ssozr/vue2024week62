@@ -6,14 +6,16 @@
   object-fit: cover;
   object-position: center;
 }
-.product {
+.card {
   border:1px solid #F8C343;
+  transition: all .15s ease;
+  box-shadow: 0 0 5px rgb(0, 0, 0, 0.3);
 }
-.product:hover {
+.card:hover {
   border:1px solid #F79E1B;
-  transform: scale(0.9);
+  transform: scale(1.1);
+  box-shadow: 0 20px 40px rgb(0, 0, 0, 0.3);
 }
-
 </style>
 
 <template>

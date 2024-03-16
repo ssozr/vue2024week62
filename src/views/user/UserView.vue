@@ -1,9 +1,9 @@
 <template>
     <nav>
-        <RouterLink to="article">文章管理</RouterLink>|
-        <RouterLink to="order">訂單管理</RouterLink> |
-        <RouterLink to="products">課程管理</RouterLink>|
-        <RouterLink to="voucher">優惠券管理</RouterLink>|
+        <RouterLink to="/admin/article">文章管理</RouterLink>|
+        <RouterLink to="/admin/order">訂單管理</RouterLink> |
+        <RouterLink to="/admin/products">課程管理</RouterLink>|
+        <RouterLink to="/admin/voucher">優惠券管理</RouterLink>|
         <RouterLink to="/">登出</RouterLink>
     </nav>
     <RouterView v-if="show"></RouterView>

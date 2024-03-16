@@ -14,7 +14,7 @@
           </div>
           <div class="d-flex justify-content-between align-items-end">
             <p class="mb-0">{{  time(articleData.create_at) }}</p>
-            <RouterLink to="/teachers" class="btn btn-primary fs-6">看看適合我的課程</RouterLink>
+            <RouterLink to="/products" class="btn btn-primary fs-6">看看適合我的課程</RouterLink>
           </div>
         </div>
       </div>

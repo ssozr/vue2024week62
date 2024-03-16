@@ -5,7 +5,7 @@
           <div class="d-flex justify-content-center">
             <h2 class="mb-10  border-bottom border-3 border-primary">尚未收錄課程</h2>
           </div>
-          <RouterLink to="teachers" class="btn btn-primary">立即前往課程列表</RouterLink>
+          <RouterLink to="products" class="btn btn-primary">立即前往課程列表</RouterLink>
         </div>
         <div v-else class="table-wrapper d-lg-block d-none">
           <table class="table align-middle">

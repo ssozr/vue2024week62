@@ -66,7 +66,7 @@ body {
     class="mySwiper"
   >
     <swiper-slide v-for="(product, i) in otherClassData" :key="i" @click="changPage(product.id)">
-      <RouterLink :to="`/class/${product.id}`">
+      <RouterLink :to="`/product/${product.id}`">
             <div class="card  bg-primary border-0 pt-4" style="height: 481px; width: 300px;">
               <div class="d-flex justify-content-center" >
                 <div class="d-flex justify-content-center align-items-center border rounded-circle border-secondary" >
