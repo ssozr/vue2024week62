@@ -66,8 +66,8 @@
   </template>
 
 <script>
-import cartStore from '../../stores/cart'
-import searchStore from '../../stores/search'
+import cartStore from '@/stores/cart'
+import searchStore from '@/stores/search'
 import { mapState, mapActions } from 'pinia'
 
 export default {

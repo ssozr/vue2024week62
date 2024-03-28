@@ -28,7 +28,6 @@ export default {
       axios.defaults.headers.common.Authorization = token
       axios.post(`${VITE_APP_API_URL}/v2/api/user/check`)
         .then((res) => {
-          console.log('驗證成功', res.data.success)
           this.show = true
         })
         .catch(() => {

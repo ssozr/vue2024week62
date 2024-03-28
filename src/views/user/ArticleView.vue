@@ -1,7 +1,7 @@
 <template>
     <div class="container">
           <div class="text-end mt-4">
-            <button class="btn btn-primary" @click=" openModal()">
+            <button type="button" class="btn btn-primary" @click=" openModal()">
               建立新的文章
             </button>
           </div>
@@ -70,7 +70,7 @@
                       <img class="img-fluid" src="" alt="要新增的圖片">
                     </div>
                     <div>
-                      <button class="btn btn-outline-primary btn-sm d-block w-100">
+                      <button type="button" class="btn btn-outline-primary btn-sm d-block w-100">
                         新增圖片
                       </button>
                     </div>
@@ -177,25 +177,27 @@ export default {
       axios.get(`${VITE_APP_API_URL}/v2/api/${VITE_APP_API_NAME}/admin/articles`)
         .then((res) => {
           this.ariticleData = res.data
-          this.isLoading = false
           this.pagination = res.data.pagination
         })
         .catch((err) => {
           alert(err.data.message).error(err)
         })
+        .finally(() => {
+          this.isLoading = false
+        })
     },
     openEditModla (item) {
-      console.log(item)
       this.isLoading = true
       axios.get(`${VITE_APP_API_URL}/v2/api/${VITE_APP_API_NAME}/admin/article/${item.id}`)
         .then((res) => {
-          console.log(res.data.article)
-          this.isLoading = false
           this.data = { ...res.data.article }
           this.articleModal.show()
         })
         .catch((err) => {
           alert(err.data.message).error(err)
+        })
+        .finally(() => {
+          this.isLoading = false
         })
       this.modal = false
       this.date = item.create_at
@@ -233,7 +235,6 @@ export default {
       } else {
         this.timeChange()
         const data = { ...this.data }
-        console.log(data)
         axios.put(`${VITE_APP_API_URL}/v2/api/${VITE_APP_API_NAME}/admin/article/${this.dataId}`, { data })
           .then((res) => {
             this.data = {}
@@ -251,7 +252,6 @@ export default {
       date.setHours(0, 0, 0, 0)
       const timestamp = date.getTime() / 1000
       this.data.create_at = timestamp
-      console.log(this.data.create_at)
     },
     time (at) {
       const date = new Date(at * 1000)

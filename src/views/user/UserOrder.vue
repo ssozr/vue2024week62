@@ -122,13 +122,14 @@ export default {
     getOrders (page = 1) {
       axios.get(`${VITE_APP_API_URL}/v2/api/${VITE_APP_API_NAME}/admin/orders/?page=${page}`)
         .then((res) => {
-          this.isLoading = false
           this.orders = res.data.orders
           this.pagination = res.data.pagination
-          console.log(res)
         })
         .catch((err) => {
           alert(err.data.message).error(err)
+        })
+        .finally(() => {
+          this.isLoading = false
         })
     },
     opDelModal (id) {

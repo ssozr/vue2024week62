@@ -1,6 +1,3 @@
-import './assets/main.css'
-
-import 'bootstrap/scss/bootstrap.scss'
 import './assets/scss/all.scss'
 import App from './App.vue'
 import router from './router'

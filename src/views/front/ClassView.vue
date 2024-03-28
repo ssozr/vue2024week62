@@ -85,10 +85,8 @@ export default {
   },
   methods: {
     getClassData () {
-      console.log(this.id)
       axios.get(`${VITE_APP_API_URL}/v2/api/${VITE_APP_API_NAME}/product/${this.id}`)
         .then((res) => {
-          console.log(res)
           this.classData = res.data.product
           this.category = res.data.product.category
           this.getOtherClassData()

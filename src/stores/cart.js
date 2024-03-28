@@ -26,10 +26,11 @@ const cartStore = defineStore('cart', {
           alert(err.data.message).error(err)
         })
     },
-    addCart (item) {
+    addCart (item, qtyNum) {
+      console.log(item)
       const data = {
         product_id: item.id,
-        qty: 1
+        qty: qtyNum
       }
       axios.post(`${VITE_APP_API_URL}/v2/api/${VITE_APP_API_NAME}/cart`, { data })
         .then((res) => {
@@ -48,7 +49,7 @@ const cartStore = defineStore('cart', {
     },
     changeGoCart (item) {
       this.goCart = true
-      this.addCart(item)
+      this.addCart(item, 1)
     }
   }
 })

@@ -130,10 +130,12 @@ export default {
         .then((res) => {
           this.coupons = res.data
           this.pagination = res.data.pagination
-          this.isLoading = false
         })
         .catch((err) => {
           alert(err.data.message)
+        })
+        .finally(() => {
+          this.isLoading = false
         })
     },
     openCouponMadl () {

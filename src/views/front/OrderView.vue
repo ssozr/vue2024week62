@@ -464,6 +464,7 @@ export default {
         .then((res) => {
           this.payModal.hide()
           Swal.fire(`${res.data.message}`)
+          this.getCartDataPinia()
           this.num++
         })
         .catch((err) => {

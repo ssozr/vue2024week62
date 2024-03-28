@@ -60,9 +60,6 @@ export default {
           alert(err.data.message)
         })
     }
-  },
-  mounted () {
-
   }
 }
 </script>

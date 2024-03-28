@@ -1,51 +1,3 @@
-<style>
-#app {
-  height: 100%;
-}
-html,
-body {
-  position: relative;
-  height: 100%;
-}
-
-body {
-  background: #eee;
-  font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
-  font-size: 14px;
-  color: #000;
-  margin: 0;
-  padding: 0;
-}
-
-.swiper-container {
-  width: 89%;
-}
-
-.swiper {
-  width: 100%;
-  height: 100%;
-}
-
-.swiper-slide {
-  text-align: center;
-  font-size: 18px;
-  background: #fff;
-
-  /* Center slide text vertically */
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.swiper-button-next::after {
-    color:#F79E1B;
-}
-
-.swiper-button-prev:after {
-    color:#F79E1B;
-}
-
-</style>
 <template>
     <div class="container-lg mt-md-30 mt-15 mb-md-30 mb-15 index-article" data-aos="fade-right">
       <div class=" mb-8">
@@ -131,3 +83,52 @@ export default {
   }
 }
 </script>
+
+<style>
+#app {
+  height: 100%;
+}
+html,
+body {
+  position: relative;
+  height: 100%;
+}
+
+body {
+  background: #eee;
+  font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  color: #000;
+  margin: 0;
+  padding: 0;
+}
+
+.swiper-container {
+  width: 89%;
+}
+
+.swiper {
+  width: 100%;
+  height: 100%;
+}
+
+.swiper-slide {
+  text-align: center;
+  font-size: 18px;
+  background: #fff;
+
+  /* Center slide text vertically */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.swiper-button-next::after {
+    color:#F79E1B;
+}
+
+.swiper-button-prev:after {
+    color:#F79E1B;
+}
+
+</style>

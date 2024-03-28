@@ -1,7 +1,7 @@
 <template>
     <div class="container">
       <div class="text-end mt-4">
-        <button class="btn btn-primary" @click="openProductModal()">
+        <button type="button" class="btn btn-primary" @click="openProductModal()">
           建立新的產品
         </button>
       </div>
@@ -77,14 +77,14 @@
                 </div>
                 <div>
                   <input type="text" v-model="images">
-                  <button class="btn btn-outline-primary btn-sm d-block w-100" @click="addImageUrl()">
+                  <button type="button" class="btn btn-outline-primary btn-sm d-block w-100" @click="addImageUrl()">
                     新增圖片
                   </button>
                 </div>
                 <div v-if="showImageUrl">
                   <div v-for="(url, i) in modal.imagesUrl" :key="i">
                     <img class="img-fluid" :src="url" alt="已新增的圖片">
-                    <button @click="removeImageUrl(i)" class="btn btn-outline-danger btn-sm d-block w-100">
+                    <button type="button" @click="removeImageUrl(i)" class="btn btn-outline-danger btn-sm d-block w-100">
                       刪除圖片
                     </button>
                   </div>
@@ -228,12 +228,14 @@ export default {
     getProducts (page = 1) {
       axios.get(`${VITE_APP_API_URL}/v2/api/${VITE_APP_API_NAME}/admin/products/?page=${page}`)
         .then((res) => {
-          this.isLoading = false
           this.products = res.data.products
           this.pagination = res.data.pagination
         })
         .catch((err) => {
           alert(err.data.message).error(err)
+        })
+        .finally(() => {
+          this.isLoading = false
         })
     },
     openDeleteModal (id) {
@@ -297,7 +299,6 @@ export default {
               this.productModal.hide()
             }
             Swal.fire(`${res.data.message}`)
-            console.log(res)
             this.getProducts()
           })
           .catch((err) => {

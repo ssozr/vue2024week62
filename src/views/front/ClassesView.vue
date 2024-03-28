@@ -1,23 +1,3 @@
-<style>
-
-.card-img {
-  height: 268px;
-  width: 268px;
-  object-fit: cover;
-  object-position: center;
-}
-.card {
-  border:1px solid #F8C343;
-  transition: all .15s ease;
-  box-shadow: 0 0 5px rgb(0, 0, 0, 0.3);
-}
-.card:hover {
-  border:1px solid #F79E1B;
-  transform: scale(1.1);
-  box-shadow: 0 20px 40px rgb(0, 0, 0, 0.3);
-}
-</style>
-
 <template>
   <div class="container-fluid" data-aos="fade-right">
     <div class="container py-15 px-0">
@@ -90,7 +70,6 @@ export default {
         .then((res) => {
           this.classData = res.data.products
           this.pagination = res.data.pagination
-          console.log(res)
         })
         .catch((err) => {
           alert(err.data.message).error(err)
@@ -134,3 +113,23 @@ export default {
   }
 }
 </script>
+
+<style>
+
+.card-img {
+  height: 268px;
+  width: 268px;
+  object-fit: cover;
+  object-position: center;
+}
+.card {
+  border:1px solid #F8C343;
+  transition: all .15s ease;
+  box-shadow: 0 0 5px rgb(0, 0, 0, 0.3);
+}
+.card:hover {
+  border:1px solid #F79E1B;
+  transform: scale(1.1);
+  box-shadow: 0 20px 40px rgb(0, 0, 0, 0.3);
+}
+</style>
