@@ -49,12 +49,18 @@ export default {
         username: this.user.email,
         password: this.user.passWord
       }
+      if (!user.username || !user.password) {
+        alert('帳號或密碼不能為空')
+        return
+      }
       axios.post(`${VITE_APP_API_URL}/v2/admin/signin`, user)
         .then((res) => {
-          const { token, expired } = res.data
-          document.cookie = `ssozrToken=${token}; expires=${new Date(expired)}`
+          if (res.data.success === true) {
+            const { token, expired } = res.data
+            document.cookie = `ssozrToken=${token}; expires=${new Date(expired)}`
+            this.$router.push('/admin/products')
+          }
           alert(res.data.message)
-          this.$router.push('/admin/products')
         })
         .catch((err) => {
           alert(err.data.message)

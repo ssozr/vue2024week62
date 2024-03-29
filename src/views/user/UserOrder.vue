@@ -1,5 +1,6 @@
 <template>
-    <table class="table">
+    <div class="container">
+      <table class="table">
       <thead>
         <tr>
           <th>購買時間</th>
@@ -26,7 +27,7 @@
           </td>
           <td>
             <div class="form-check form-switch">
-              <input class="form-check-input" type="checkbox" role="switch" id="item.id" :checked="item.is_paid" @click="upDataPaid(item)">
+              <input class="form-check-input" type="checkbox" role="switch" id="item.id" :disabled="paidDisabled" :checked="item.is_paid" @click="upDataPaid(item)">
               <label class="form-check-label" :for="item.id">
                 <p v-if="item.is_paid">已付款</p>
                 <p v-else>未付款</p>
@@ -46,6 +47,7 @@
     @change-page="changePage"
     ></Pagination> -->
     <loading v-model:active="isLoading"/>
+    </div>
 
   <!--刪除 modal -->
   <div class="modal" tabindex="-1" id="delModal" ref="delModal">
@@ -111,7 +113,8 @@ export default {
       orderModalId: '',
       orderData: '',
       pagination: {},
-      page: ''
+      page: '',
+      paidDisabled: false
     }
   },
   components: {
@@ -153,6 +156,7 @@ export default {
       this.orderData = { ...item }
     },
     upDataPaid (item) {
+      this.paidDisabled = true
       const paid = {
         is_paid: !item.is_paid
       }
@@ -163,6 +167,9 @@ export default {
         })
         .catch((err) => {
           alert(err.data.message).error(err)
+        })
+        .finally(() => {
+          this.paidDisabled = false
         })
     },
     changePage (page) {

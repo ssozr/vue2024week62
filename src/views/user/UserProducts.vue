@@ -33,7 +33,7 @@
             <td class="text-end">{{ product.origin_price }}</td>
             <td class="text-end">{{ product.price }}</td>
             <td>
-              <span v-if="product.is_enabled" class="text-success">啟用</span>
+              <span v-if="product.is_enabled" class="text-secondary">啟用</span>
               <span v-else>未啟用</span>
             </td>
             <td>
@@ -103,8 +103,8 @@
                            placeholder="請輸入分類">
                   </div>
                   <div class="mb-3 col-md-6">
-                    <label for="price" class="form-label">導師姓名</label>
-                    <input v-model="modal.unit" id="unit" type="text" class="form-control" placeholder="請輸入單位">
+                    <label for="name" class="form-label">導師姓名</label>
+                    <input v-model="modal.unit" id="name" type="text" class="form-control" placeholder="請輸入單位">
                   </div>
                 </div>
 
@@ -129,7 +129,7 @@
                 </div>
                 <div class="mb-3">
                   <label for="content" class="form-label">說明內容</label>
-                  <textarea v-model="modal.content" id="description" type="text" class="form-control"
+                  <textarea v-model="modal.content" id="content" type="text" class="form-control"
                             placeholder="請輸入說明內容">
                   </textarea>
                 </div>

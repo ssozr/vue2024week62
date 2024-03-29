@@ -29,7 +29,7 @@
                 <td>{{ time(item.create_at) }}</td>
                 <td>{{ item.author }}</td>
                 <td>
-                  <span class="text-success" v-if="item.isPublic">啟用</span>
+                  <span class="text-secondary" v-if="item.isPublic">啟用</span>
                   <span v-else>未啟用</span>
                 </td>
                 <td>
@@ -224,10 +224,12 @@ export default {
         const data = { ...this.data }
         axios.post(`${VITE_APP_API_URL}/v2/api/${VITE_APP_API_NAME}/admin/article`, { data })
           .then((res) => {
+            if (res.success === true) {
+              this.articleModal.hide()
+            }
             this.data = {}
             Swal.fire(`${res.data.message}`)
             this.getAriticle()
-            this.articleModal.hide()
           })
           .catch((err) => {
             alert(err.data.message).error(err)
@@ -237,10 +239,12 @@ export default {
         const data = { ...this.data }
         axios.put(`${VITE_APP_API_URL}/v2/api/${VITE_APP_API_NAME}/admin/article/${this.dataId}`, { data })
           .then((res) => {
+            if (res.success === true) {
+              this.articleModal.hide()
+            }
             this.data = {}
             this.getAriticle()
             Swal.fire(`${res.data.message}`)
-            this.articleModal.hide()
           })
           .catch((err) => {
             alert(err.data.message).error(err)
