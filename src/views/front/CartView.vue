@@ -1,5 +1,5 @@
 <template>
-  <div class="container" data-aos="fade-right">
+  <div class="container mt-30" data-aos="fade-right">
     <div class="row justify-content-center">
       <Loading v-model:active="isLoading"/>
       <div v-if="cartData.total === 0" class="text-center my-30">
@@ -25,7 +25,7 @@
               <th>
                 <button
                   type="button"
-                  class="btn btn-primary rounded-pill"
+                  class="btn btn-secondary rounded-pill"
                   @click="openDelAllModal()"
                 >
                   清空購物車
@@ -78,7 +78,7 @@
               <td>
                 <button
                   type="button"
-                  class="btn btn-primary rounded-pill"
+                  class="btn btn-secondary rounded-pill"
                   @click="openDelModal(item)"
                 >
                   刪除
@@ -108,6 +108,15 @@
         </table>
       </div>
       <div v-if="cartData.total !== 0" class="row d-lg-none my-15">
+        <div class="d-flex justify-content-end">
+          <button
+                  type="button"
+                  class="btn btn-secondary rounded-pill col-4 mb-3"
+                  @click="openDelAllModal()"
+                >
+                  清空購物車
+                </button>
+        </div>
         <ul
           v-for="(item, i) in cartData.carts"
           :key="i"
@@ -116,14 +125,14 @@
           <li>
             <div class="d-flex justify-content-between align-items-center mb-3">
               <RouterLink :to="`/class/${item.product.id}`"
-                ><h2 class="fs-5">
+                ><h2 class="fs-6 fw-blod">
                   {{ item.product.title }}
                   <span class="fs-7">單價:{{ item.product.price }}</span>
                 </h2></RouterLink
               >
               <button
                 type="button"
-                class="btn btn-primary rounded-pill"
+                class="btn btn-secondary rounded-pill"
                 @click="openDelModal(item)"
               >
                 刪除
@@ -182,9 +191,6 @@
             aria-label="Close"
           ></button>
         </div>
-        <div class="modal-body">
-          <p>確定移出此課程?</p>
-        </div>
         <div class="modal-footer">
           <button
             type="button"
@@ -195,20 +201,28 @@
           </button>
           <button
             type="button"
-            class="btn btn-primary"
+            class="btn btn-secondary"
             @click="delCart(delData.id)"
           >
-            確認移出
+            確認
           </button>
         </div>
       </div>
     </div>
   </div>
+  <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 5;">
+      <div id="liveToast" class="toast hide" ref="myToast" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-header bg-secondary">
+          <strong class="me-auto text-white">{{ myToast.title }}</strong>
+          <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+      </div>
+    </div>
 </template>
 
 <script>
 import cartStore from '@/stores/cart'
-import { Modal } from 'bootstrap'
+import { Modal, Toast } from 'bootstrap'
 import { mapActions } from 'pinia'
 import Swal from 'sweetalert2'
 import { RouterLink } from 'vue-router'
@@ -224,7 +238,14 @@ export default {
       delId: '',
       disabled: false,
       productData: {},
-      isLoading: false
+      isLoading: false,
+      myToast: {
+        title: ''
+      },
+      modal: {
+        Title: '',
+        btn: ''
+      }
     }
   },
   components: {
@@ -237,7 +258,6 @@ export default {
         .get(`${VITE_APP_API_URL}/v2/api/${VITE_APP_API_NAME}/cart`)
         .then((res) => {
           this.cartData = res.data.data
-          console.log(this.cartData)
         })
         .catch((err) => {
           alert(err.data.message).error(err)
@@ -251,11 +271,12 @@ export default {
       this.delModal.show()
       this.delId = item.id
       this.delData = item.product
+      this.delData.title = `刪除課程:${item.product.title}`
     },
     openDelAllModal () {
       this.delData = {}
       this.delId = ''
-      this.delData.title = '全部商品'
+      this.delData.title = '確定要清空購物車?'
       this.delModal.show()
     },
     delCart () {
@@ -265,11 +286,14 @@ export default {
             `${VITE_APP_API_URL}/v2/api/${VITE_APP_API_NAME}/cart/${this.delId}`
           )
           .then((res) => {
+            if (res.data.success === true) {
+              this.myToast.title = '已刪除課程'
+              this.myToast.show()
+            }
             this.delData = {}
             this.delId = ''
             this.delModal.hide()
             this.getCartData()
-            Swal.fire(`${res.data.message}`)
             this.getCartDataPinia()
           })
           .catch((err) => {
@@ -278,7 +302,11 @@ export default {
       } else {
         axios
           .delete(`${VITE_APP_API_URL}/v2/api/${VITE_APP_API_NAME}/carts`)
-          .then(() => {
+          .then((res) => {
+            if (res.data.success === true) {
+              this.myToast.title = '已清空購物車'
+              this.myToast.show()
+            }
             this.delData = {}
             this.delId = ' '
             this.delModal.hide()
@@ -291,7 +319,6 @@ export default {
       }
     },
     changeQty (num, id, productId) {
-      console.log(id)
       this.disabled = true
       const data = {
         product_id: productId,
@@ -321,6 +348,7 @@ export default {
     this.isLoading = true
     this.getCartData()
     this.delModal = new Modal(this.$refs.delModal)
+    this.myToast = new Toast(this.$refs.myToast)
   }
 }
 </script>

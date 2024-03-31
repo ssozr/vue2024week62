@@ -1,5 +1,5 @@
 <template>
-    <div class="container mb-15 teacher" data-aos="fade-right">
+    <div class="container mt-30 mb-15 teacher" data-aos="fade-right">
       <div class="row">
         <div class="text-center p-0 mb-10 col-8 offset-2">
           <img :src="classData.imagesUrl" class="imgI" alt="課程示意圖">
@@ -20,7 +20,17 @@
                 <li><p class="fs-4 m-0">課程總額:<span class="ms-4">NT${{ formatNumber(classData.price) }}</span></p></li>
               </ul>
               <div class="d-lg-flex mt-3">
-                <button type="button" class="btn btn-primary" @click="openAddModal(classData)">加入購物車</button>
+                <div class="d-flex justify-content-center mb-md-0 mb-3" >
+                  <button type="button" class="btn btn-primary me-3" @click="addCart(classData, qtyNum)" :disabled="addCartBtn">加入購物車</button>
+                <div class="dropdown" >
+                <button  class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                  {{ qtyNum }}
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1" >
+                  <li v-for="(num, i) in 20" :key="i"><a  class="dropdown-item" @click="qty(num)">{{ num }}</a></li>
+                </ul>
+                </div>
+              </div>
                 <button  type="button" class="btn btn-primary ms-6" @click="changeGoCart(classData, qty)">立即上課</button>
               </div>
             </div>
@@ -63,7 +73,7 @@
 
 <script>
 import cartStore from '@/stores/cart'
-import { mapActions } from 'pinia'
+import { mapActions, mapState } from 'pinia'
 import SwiperClassVue from '@/components/SwiperClass.vue'
 import { Modal } from 'bootstrap'
 import axios from 'axios'
@@ -77,7 +87,8 @@ export default {
       goCart: false,
       category: '',
       addModal: '',
-      qtyNum: 1
+      qtyNum: 1,
+      mToast: ''
     }
   },
   components: {
@@ -134,9 +145,16 @@ export default {
     },
     qty (num) {
       this.qtyNum = num
+    },
+    addCartBtnChange () {
+      this.addCarBtn = true
     }
   },
+  computed: {
+    ...mapState(cartStore, ['addCartBtn'])
+  },
   mounted () {
+    console.log(this.$refs)
     const { id } = this.$route.params
     this.id = id
     this.getClassData()

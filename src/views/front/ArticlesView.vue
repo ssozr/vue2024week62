@@ -1,6 +1,6 @@
 <template>
     <div class="articles" data-aos="fade-right">
-      <div class="container my-15">
+      <div class="container mt-30 mb-15">
         <div class="row">
           <RouterLink :to="`/article/${item.id}`"  v-for="(item, i) in articleData" :key="i">
             <div class="card mb-3 p-0">

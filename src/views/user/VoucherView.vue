@@ -168,15 +168,13 @@ export default {
       if (this.modal === false) {
         this.timeChange()
         const data = { ...this.couponData }
-        console.log(data)
         axios.put(`${VITE_APP_API_URL}/v2/api/${VITE_APP_API_NAME}/admin/coupon/${this.editId}`, { data })
           .then((res) => {
-            console.log(res)
-            if (res.success === true) {
-              this.couponModal.hide()
-            }
             this.getCoupons()
             Swal.fire(`${res.data.message}`)
+            if (res.data.success === true) {
+              this.couponModal.hide()
+            }
           })
           .catch((err) => {
             alert(err.data.message)
@@ -186,7 +184,7 @@ export default {
         const data = { ...this.couponData }
         axios.post(`${VITE_APP_API_URL}/v2/api/${VITE_APP_API_NAME}/admin/coupon`, { data })
           .then((res) => {
-            if (res.success === true) {
+            if (res.data.success === true) {
               this.couponModal.hide()
             }
             Swal.fire(`${res.data.message}`)

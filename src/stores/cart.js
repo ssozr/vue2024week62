@@ -11,7 +11,8 @@ const cartStore = defineStore('cart', {
       carts: [],
       total: 0,
       final_total: 0,
-      goCart: false
+      goCart: false,
+      addCartBtn: false
     }
   },
   actions: {
@@ -27,7 +28,7 @@ const cartStore = defineStore('cart', {
         })
     },
     addCart (item, qtyNum) {
-      console.log(item)
+      this.addCartBtn = true
       const data = {
         product_id: item.id,
         qty: qtyNum
@@ -35,6 +36,7 @@ const cartStore = defineStore('cart', {
       axios.post(`${VITE_APP_API_URL}/v2/api/${VITE_APP_API_NAME}/cart`, { data })
         .then((res) => {
           if (this.goCart === false) {
+            this.addCartBtn = false
             Swal.fire(`${res.data.message}`)
             this.getCartDataPinia()
           } else {

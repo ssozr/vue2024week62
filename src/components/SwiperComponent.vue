@@ -1,3 +1,80 @@
+<template>
+  <swiper :pagination="true" :modules="modules" class="mySwiper pb-3" :space-between="50">
+    <swiper-slide>
+      <RouterLink :to="`product/${classData[0].id}`">
+        <div class="row">
+          <div class="card border-primary border-0 bg-primary" style="width: auto;">
+            <div class="bg-primary border-primary d-flex justify-content-center">
+              <div class="rounded-circle border border-secondary position-relative " >
+                <div class="teacher-1 m-5"></div>
+                <img src="../assets/images/Ellipse 14.png" alt="導師照片" class="position-absolute top-0 end-0">
+              </div>
+            </div>
+            <div class="card-body bg-primary">
+              <h5 class="card-title mt-6 text-center mb-8" >{{ classData[0].unit }}</h5>
+              <p class="card-text mb-6 fs-6">人的一生中，與自己的對話，多過與別人的對話 但我們對自己講的話，不一定是溫和，真實，有幫助， 有時甚至毫不尊重．</p>
+              <div class="text-center">
+                <button type="button" class="btn btn-secondary rounded-pill px-10 py-3"  @click="changePage()">課程連結</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </RouterLink>
+    </swiper-slide>
+    <swiper-slide>
+      <RouterLink :to="`product/${classData[1].id}`">
+        <div class="row">
+          <div class="card border-primary border-0 bg-primary" style="width: auto;">
+            <div class="bg-primary border-primary d-flex justify-content-center">
+              <div class="rounded-circle border border-secondary position-relative " >
+                <div class="teacher-1 m-5"></div>
+                <img src="../assets/images/teacher2.png" alt="導師照片" class="position-absolute top-0 end-0">
+              </div>
+            </div>
+            <div class="card-body bg-primary">
+              <h5 class="card-title mt-6 text-center mb-8" >{{ classData[1].unit }}</h5>
+              <p class="card-text mb-6 fs-6">人的一生中，與自己的對話，多過與別人的對話 但我們對自己講的話，不一定是溫和，真實，有幫助， 有時甚至毫不尊重．</p>
+              <div class="text-center">
+                <button type="button" class="btn btn-secondary rounded-pill px-10 py-3"  @click="changePage()">課程連結</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </RouterLink>
+    </swiper-slide>
+  </swiper>
+</template>
+<script>
+// Import Swiper Vue.js components
+import { Swiper, SwiperSlide } from 'swiper/vue'
+
+// Import Swiper styles
+import 'swiper/css'
+
+import 'swiper/css/pagination'
+
+// import required modules
+import { Pagination } from 'swiper/modules'
+
+export default {
+  props: ['classData'],
+  components: {
+    Swiper,
+    SwiperSlide
+  },
+  setup () {
+    return {
+      modules: [Pagination]
+    }
+  },
+  methods: {
+    changePage () {
+      this.$router.push('/teachers')
+    }
+  }
+}
+</script>
+
 <style>
 
 #app {
@@ -43,7 +120,7 @@ body {
 }
 
 .teacher-1 {
-      background-image: url("../assets/images/Ellipse\ 14\ \(1\).png");
+      background-image: url("../assets/images/Ellipse 14.png");
       height: 268px;
       width: 268px;
       background-size: cover;
@@ -62,75 +139,3 @@ body {
 }
 
 </style>
-
-<template>
-  <swiper :pagination="true" :modules="modules" class="mySwiper" :space-between="50">
-    <swiper-slide>
-      <div class="row">
-        <div class="card border-primary border-0 bg-primary" style="width: auto;">
-          <div class="bg-primary border-primary d-flex justify-content-center">
-            <div class="rounded-circle border border-secondary position-relative " >
-              <div class="teacher-1 m-5"></div>
-              <img src="../assets/images/Ellipse18.png" alt="導師照片" class="position-absolute top-0 end-0">
-            </div>
-          </div>
-          <div class="card-body bg-primary">
-            <h5 class="card-title mt-6 text-center mb-8" >Aaliyah</h5>
-            <p class="card-text mb-6 fs-6">人的一生中，與自己的對話，多過與別人的對話 但我們對自己講的話，不一定是溫和，真實，有幫助， 有時甚至毫不尊重．</p>
-            <div class="text-center">
-              <button type="button" class="btn btn-secondary rounded-pill px-10 py-3"  @click="changePage()">課程連結</button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </swiper-slide>
-    <swiper-slide>
-      <div class="row">
-        <div class="card border-primary border-0 bg-primary" style="width: auto;">
-          <div class="bg-primary border-primary d-flex justify-content-center">
-            <div class="rounded-circle border border-secondary position-relative ">
-              <div class="teacher-2 m-5"></div>
-              <img src="../assets/images/Ellipse18.png" alt="導師照片" class="position-absolute bottom-0 end-0">
-            </div>
-          </div>
-          <div class="card-body bg-primary">
-            <h5 class="card-title mt-6 text-center mb-8" >Aaliyah</h5>
-            <p class="card-text mb-6 fs-6 ms-3">改變往往不像Nike說的那麼單純: Just Do it ，也不像許新年願望那麼簡單，改變需要通過一連串階段，讓你慢慢的好起來...</p>
-            <div class="text-center">
-              <button type="button" class="btn btn-secondary rounded-pill px-10 py-3" @click="changePage()">課程連結</button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </swiper-slide>
-  </swiper>
-</template>
-<script>
-// Import Swiper Vue.js components
-import { Swiper, SwiperSlide } from 'swiper/vue'
-
-// Import Swiper styles
-import 'swiper/css'
-
-import 'swiper/css/pagination'
-
-// import required modules
-import { Pagination } from 'swiper/modules'
-
-export default {
-  components: {
-    Swiper,
-    SwiperSlide
-  },
-  setup () {
-    return {
-      modules: [Pagination]
-    }
-  },
-  methods: {
-    changePage () {
-      this.$router.push('/teachers')
-    }
-  }
-}
-</script>

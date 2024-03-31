@@ -1,5 +1,5 @@
 <template>
-    <div class="container article my-md-30 my-15" data-aos="fade-right">
+    <div class="container article mt-30 my-md-30 mb-15" data-aos="fade-right">
       <div class="row">
         <div class="col-8 offset-2">
           <div class="p-0 mb-10">

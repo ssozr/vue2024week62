@@ -1,6 +1,6 @@
 <template>
   <div class="container-fluid" data-aos="fade-right">
-    <div class="container py-15 px-0">
+    <div class="container mt-30 pb-15 px-0">
       <div class="mb-4">
         <div class="btn btn-primary">
           <select class="btn btn-primary px-0 py-3 border-0" @change="changeClass" v-model="changeData">
