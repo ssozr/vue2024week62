@@ -12,11 +12,17 @@
             ><h4 class="mt-md-8 pb-md-6 mt-3 pb-3 mb-0">我想看見...</h4></label
           >
           <div class="input-group">
-            <select class="form-select" id="search" @change="searchCategory">
+            <select class="form-select d-none d-md-block" id="search" @change="searchCategory">
               <option class="d-none d-md-block" value="選擇一個你想了解的領域" :disabled="true" selected>
                 選擇一個你想了解的領域
               </option>
-              <option class="d-md-none" value="選擇一個你想了解的領域" :disabled="true" selected>
+              <option value="自我成長">自我成長</option>
+              <option value="感情婚姻">感情婚姻</option>
+              <option value="人際關係">人際關係</option>
+              <option value="諮商談話">諮商談話</option>
+            </select>
+            <select class="form-select d-md-none" id="search" @change="searchCategory">
+              <option class="d-md-none" value="課程分類" :disabled="true" selected>
                 課程分類
               </option>
               <option value="自我成長">自我成長</option>
