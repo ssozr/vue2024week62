@@ -1,8 +1,7 @@
 <template>
-      <swiper
-      :slidesPerView="1"
+  <swiper
+    :slidesPerView="3"
     :spaceBetween="30"
-    :loop="true"
     :pagination="{
       clickable: true,
     }"
@@ -10,30 +9,43 @@
       delay: 2500,
       disableOnInteraction: false,
     }"
-    :navigation="true"
+    :navigation="false"
     :modules="modules"
     class="mySwiper"
+    style="height: 100%;"
   >
-    <swiper-slide v-for="(product, i) in otherClassData" :key="i" @click="changPage(product.id)">
-      <RouterLink :to="`/product/${product.id}`">
-            <div class="card  bg-primary border-0 pt-4">
-              <div class="d-flex justify-content-center" >
-                <div class="d-flex justify-content-center align-items-center border rounded-circle border-secondary" >
-                  <img :src="product.imageUrl" class="card-img-top rounded-circle card-img p-5" alt="導師照片">
-                </div>
-              </div>
-              <div class="card-body text-center p-0 mt-5">
-                <h2 class="card-title fs-4">{{ product.title}}</h2>
-                <div class="mt-8 mb-6">
-                  <p class="card-text fs-6">{{ product.description }}</p>
-                </div>
-              </div>
-              <div class="card-footer text-center bg-secondary text-white">
-                課程連結
+    <swiper-slide
+      v-for="(product, i) in otherClassData"
+      :key="i"
+      @click="changPage(product.id)"
+    >
+      <RouterLink :to="`/product/${product.id}`" class="h-100 d-block">
+        <div class="card-group h-100">
+          <div class="card bg-primary border-0 pt-4 h-100">
+            <div class="d-flex justify-content-center">
+              <div
+                class="d-flex justify-content-center align-items-center border rounded-circle border-secondary"
+              >
+                <img
+                  :src="product.imageUrl"
+                  class="card-img-top rounded-circle card-img p-5 img-fluid"
+                  alt="導師照片"
+                />
               </div>
             </div>
-        </RouterLink>
-      </swiper-slide>
+            <div class="card-body text-center p-0 mt-5">
+              <h2 class="card-title fs-4">{{ product.title }}</h2>
+              <div class="mt-8 mb-6">
+                <p class="card-text fs-6">{{ product.description }}</p>
+              </div>
+            </div>
+            <div class="card-footer text-center bg-secondary text-white">
+              課程連結
+            </div>
+          </div>
+        </div>
+      </RouterLink>
+    </swiper-slide>
   </swiper>
 </template>
 
@@ -71,8 +83,10 @@ export default {
 }
 </script>
 
-<style>
-#app { height: 100% }
+<style scoped>
+#app {
+  height: 100%;
+}
 html,
 body {
   position: relative;
@@ -110,9 +124,11 @@ body {
   object-position: center;
   height: 268px;
   width: 268px;
+  @media (max-width: 768px) {
+    height: 150px;
+  }
 }
 .product {
-  border:1px solid #F8C343;
+  border: 1px solid #F8C343;
 }
-
 </style>

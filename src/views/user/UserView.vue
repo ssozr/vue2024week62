@@ -1,12 +1,12 @@
 <template>
-    <nav>
-        <RouterLink to="/admin/article">文章管理</RouterLink>|
-        <RouterLink to="/admin/order">訂單管理</RouterLink> |
-        <RouterLink to="/admin/products">課程管理</RouterLink>|
-        <RouterLink to="/admin/voucher">優惠券管理</RouterLink>|
-        <RouterLink to="/">登出</RouterLink>
-    </nav>
-    <RouterView v-if="show"></RouterView>
+  <nav>
+    <RouterLink to="/admin/article">文章管理</RouterLink>|
+    <RouterLink to="/admin/order">訂單管理</RouterLink> |
+    <RouterLink to="/admin/products">課程管理</RouterLink>|
+    <RouterLink to="/admin/voucher">優惠券管理</RouterLink>|
+    <RouterLink to="/">登出</RouterLink>
+  </nav>
+  <RouterView v-if="show"></RouterView>
 </template>
 
 <script>
@@ -26,7 +26,8 @@ export default {
         '$1'
       )
       axios.defaults.headers.common.Authorization = token
-      axios.post(`${VITE_APP_API_URL}/v2/api/user/check`)
+      axios
+        .post(`${VITE_APP_API_URL}/v2/api/user/check`)
         .then((res) => {
           this.show = true
         })

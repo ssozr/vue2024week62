@@ -1,7 +1,7 @@
 <template>
-  <div class="container mt-30" data-aos="fade-right">
+  <div class="container mt-15 mt-md-30" data-aos="fade-right">
     <div class="row justify-content-center">
-      <Loading v-model:active="isLoading"/>
+      <Loading v-model:active="isLoading" />
       <div v-if="cartData.total === 0" class="text-center my-30">
         <div class="d-flex justify-content-center">
           <h2 class="mb-10 border-bottom border-3 border-primary">
@@ -90,6 +90,7 @@
               <td></td>
               <td></td>
               <td></td>
+              <td></td>
               <td class="align-bottom">
                 <h2 class="border-bottom border-primary border-3 mb-0 fs-6">
                   總金額:NT
@@ -110,12 +111,12 @@
       <div v-if="cartData.total !== 0" class="row d-lg-none my-15">
         <div class="d-flex justify-content-end">
           <button
-                  type="button"
-                  class="btn btn-secondary rounded-pill col-4 mb-3"
-                  @click="openDelAllModal()"
-                >
-                  清空購物車
-                </button>
+            type="button"
+            class="btn btn-secondary rounded-pill col-4 mb-3"
+            @click="openDelAllModal()"
+          >
+            清空購物車
+          </button>
         </div>
         <ul
           v-for="(item, i) in cartData.carts"
@@ -123,7 +124,7 @@
           class="border-bottom pb-3 border-primary"
         >
           <li>
-            <div class="d-flex justify-content-between align-items-center mb-3">
+            <div class="d-flex justify-content-between align-items-center">
               <RouterLink :to="`/class/${item.product.id}`"
                 ><h2 class="fs-6 fw-blod">
                   {{ item.product.title }}
@@ -132,19 +133,21 @@
               >
               <button
                 type="button"
-                class="btn btn-secondary rounded-pill"
+                class="btn text-black rounded-pill"
                 @click="openDelModal(item)"
               >
-                刪除
+              <span class="material-symbols-outlined">
+close
+</span>
               </button>
             </div>
-            <div class="d-flex align-items-center justify-content-between">
-              <div>總堂數:{{ item.product.origin_price * item.qty }}堂</div>
-              <div class="dropdown">
-                購買次數:
+            <div class="d-flex align-items-center justify-content-between mb-3">
+              <div>總數:{{ item.product.origin_price * item.qty }}堂</div>
+              <div class="dropdown d-flex">
+                次數:
                 <button
                   :disabled="disabled"
-                  class="btn btn-secondary dropdown-toggle py-0"
+                  class="btn btn-secondary dropdown-toggle py-0 ms-3"
                   type="button"
                   id="dropdownMenuButton1"
                   data-bs-toggle="dropdown"
@@ -154,14 +157,16 @@
                 </button>
                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                   <li v-for="(num, i) in 20" :key="i">
-                    <a @click="changeQty(num, item.id, item.product_id)" class="dropdown-item">{{
-                      num
-                    }}</a>
+                    <a
+                      @click="changeQty(num, item.id, item.product_id)"
+                      class="dropdown-item"
+                      >{{ num }}</a
+                    >
                   </li>
                 </ul>
               </div>
-              <div>此課程總額: ${{ formatNumber(item.total) }}</div>
             </div>
+            <div>總額: ${{ formatNumber(item.total) }}</div>
           </li>
         </ul>
         <div class="d-flex justify-content-between">
@@ -210,21 +215,32 @@
       </div>
     </div>
   </div>
-  <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 5;">
-      <div id="liveToast" class="toast hide" ref="myToast" role="alert" aria-live="assertive" aria-atomic="true">
-        <div class="toast-header bg-secondary">
-          <strong class="me-auto text-white">{{ myToast.title }}</strong>
-          <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
-        </div>
+  <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 5">
+    <div
+      id="liveToast"
+      class="toast hide"
+      ref="myToast"
+      role="alert"
+      aria-live="assertive"
+      aria-atomic="true"
+    >
+      <div class="toast-header bg-secondary">
+        <strong class="me-auto text-white">{{ myToast.title }}</strong>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="toast"
+          aria-label="Close"
+        ></button>
       </div>
     </div>
+  </div>
 </template>
 
 <script>
 import cartStore from '@/stores/cart'
 import { Modal, Toast } from 'bootstrap'
 import { mapActions } from 'pinia'
-import Swal from 'sweetalert2'
 import { RouterLink } from 'vue-router'
 import axios from 'axios'
 import Loading from 'vue-loading-overlay'
@@ -232,6 +248,7 @@ const { VITE_APP_API_URL, VITE_APP_API_NAME } = import.meta.env
 export default {
   data () {
     return {
+      cartToast: false,
       cartData: [],
       dalModal: '',
       delData: {},
@@ -328,8 +345,9 @@ export default {
         .put(`${VITE_APP_API_URL}/v2/api/${VITE_APP_API_NAME}/cart/${id}`, {
           data
         })
-        .then((res) => {
-          Swal.fire(`${res.data.message}`)
+        .then(() => {
+          this.myToast.title = '已更新數量'
+          this.myToast.show()
           this.disabled = false
           this.getCartData()
         })

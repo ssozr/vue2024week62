@@ -1,16 +1,24 @@
 <template>
   <div class="container mt-15">
-    <h2 class="fs-1 text-center mb-8 border-bottom border-primary border-2 pb-3">陪伴無數朋友們，重新認識自己</h2>
+    <h2
+      class="fs-1 text-center mb-4 border-bottom border-primary border-2 pb-3"
+    >
+      陪伴無數朋友們，重新認識自己
+    </h2>
     <swiper
       :spaceBetween="30"
       :pagination="{
         clickable: true,
       }"
       :modules="modules"
-      class="mySwiper pb-5 "
+      class="mySwiper pb-5 h-100"
     >
-      <swiper-slide v-for="(article) in articlesData" :key="article.id" class="bg-success">
-        <div class="card my-5 bg-success border-0">
+      <swiper-slide
+        v-for="article in articlesData"
+        :key="article.id"
+        class="bg-success h-100"
+      >
+        <div class="card my-5 bg-success border-0 h-100">
           <div class="card-body">
             <h5 class="card-title text-start">{{ article.title }}</h5>
             <p class="card-text text-start">{{ article.description }}</p>
@@ -20,7 +28,7 @@
       </swiper-slide>
     </swiper>
   </div>
-  </template>
+</template>
 <script>
 // Import Swiper Vue.js components
 import { Swiper, SwiperSlide } from 'swiper/vue'
@@ -55,7 +63,8 @@ export default {
   },
   methods: {
     getArticleData () {
-      axios.get(`${VITE_APP_API_URL}/v2/api/${VITE_APP_API_NAME}/articles`)
+      axios
+        .get(`${VITE_APP_API_URL}/v2/api/${VITE_APP_API_NAME}/articles`)
         .then((res) => {
           this.articlesData = res.data.articles
         })
@@ -68,10 +77,9 @@ export default {
     this.getArticleData()
   }
 }
-
 </script>
 
-<style>
+<style scoped>
 #app {
   height: 100%;
 }
@@ -113,4 +121,7 @@ body {
   object-fit: cover;
 }
 
+:deep(.swiper-pagination-bullet) {
+    background-color: #F8C343 !important; /* 使用更具体的选择器，并添加 !important 提高优先级 */
+}
 </style>

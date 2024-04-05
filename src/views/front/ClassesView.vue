@@ -3,7 +3,11 @@
     <div class="container mt-30 pb-15 px-0">
       <div class="mb-4">
         <div class="btn btn-primary">
-          <select class="btn btn-primary px-0 py-3 border-0" @change="changeClass" v-model="changeData">
+          <select
+            class="btn btn-primary px-0 py-3 border-0"
+            @change="changeClass"
+            v-model="changeData"
+          >
             <option value="" selected>全部課程</option>
             <option value="自我成長">自我成長</option>
             <option value="感情婚姻">感情婚姻</option>
@@ -13,29 +17,42 @@
         </div>
       </div>
       <div class="row">
-        <RouterLink :to="`/product/${product.id}`" v-for="(product, i) in classData" :key="i" class="col-lg-4 col-md-6 mb-8 border-0 card-group justify-content-center product ">
-            <div class="card h-100 bg-primary border-0 pt-4">
-              <div class="d-flex justify-content-center" >
-                <div class="d-flex justify-content-center align-items-center border rounded-circle border-secondary" style="width: 308px; height: 308px;">
-                  <img :src="product.imageUrl" class="card-img-top rounded-circle card-img p-5" alt="導師照片">
-                </div>
-              </div>
-              <div class="card-body text-center p-0 mt-5">
-                <h2 class="card-title fs-4">{{ product.title}}</h2>
-                <div class="mt-8 mb-6">
-                  <p class="card-text fs-6">{{ product.description }}</p>
-                </div>
-              </div>
-              <div class="card-footer text-center bg-secondary text-white">
-                詳細介紹
+        <RouterLink
+          :to="`/product/${product.id}`"
+          v-for="(product, i) in classData"
+          :key="i"
+          class="col-lg-4 col-md-6 mb-8 border-0 card-group justify-content-center product"
+        >
+          <div class="card h-100 bg-primary border-0 pt-4">
+            <div class="d-flex justify-content-center">
+              <div
+                class="d-flex justify-content-center align-items-center border rounded-circle border-secondary"
+                style="width: 308px; height: 308px"
+              >
+                <img
+                  :src="product.imageUrl"
+                  class="card-img-top rounded-circle card-img p-5"
+                  alt="導師照片"
+                />
               </div>
             </div>
+            <div class="card-body text-center p-0 mt-5">
+              <h2 class="card-title fs-4">{{ product.title }}</h2>
+              <div class="mt-8 mb-6">
+                <p class="card-text fs-6">{{ product.description }}</p>
+              </div>
+            </div>
+            <div class="card-footer text-center bg-secondary text-white">
+              詳細介紹
+            </div>
+          </div>
         </RouterLink>
       </div>
-        <Pagination :class="{ 'd-none': pagination.total_pages === 1 }"
+      <Pagination
+        :class="{ 'd-none': pagination.total_pages === 1 }"
         :pagination="pagination"
         @change-page="changePage"
-         />
+      />
     </div>
   </div>
 </template>
@@ -66,7 +83,10 @@ export default {
   },
   methods: {
     getClassData (page = 1) {
-      axios.get(`${VITE_APP_API_URL}/v2/api/${VITE_APP_API_NAME}/products/?page=${page}`)
+      axios
+        .get(
+          `${VITE_APP_API_URL}/v2/api/${VITE_APP_API_NAME}/products/?page=${page}`
+        )
         .then((res) => {
           this.classData = res.data.products
           this.pagination = res.data.pagination
@@ -80,7 +100,10 @@ export default {
     },
     changeClass (category) {
       const a = category.target.value
-      axios.get(`${VITE_APP_API_URL}v2/api/${VITE_APP_API_NAME}/products/?category=${a}`)
+      axios
+        .get(
+          `${VITE_APP_API_URL}v2/api/${VITE_APP_API_NAME}/products/?category=${a}`
+        )
         .then((res) => {
           this.classData = res.data.products
           this.pagination = res.data.pagination
@@ -90,7 +113,10 @@ export default {
         })
     },
     searchClass (category) {
-      axios.get(`${VITE_APP_API_URL}v2/api/${VITE_APP_API_NAME}/products/?category=${category}`)
+      axios
+        .get(
+          `${VITE_APP_API_URL}v2/api/${VITE_APP_API_NAME}/products/?category=${category}`
+        )
         .then((res) => {
           this.changeData = category
           this.classData = res.data.products
@@ -114,8 +140,7 @@ export default {
 }
 </script>
 
-<style>
-
+<style scoped>
 .card-img {
   height: 268px;
   width: 268px;
@@ -123,12 +148,12 @@ export default {
   object-position: center;
 }
 .card {
-  border:1px solid #F8C343;
-  transition: all .15s ease;
+  border: 1px solid #f8c343;
+  transition: all 0.15s ease;
   box-shadow: 0 0 5px rgb(0, 0, 0, 0.3);
 }
 .card:hover {
-  border:1px solid #F79E1B;
+  border: 1px solid #f79e1b;
   transform: scale(1.1);
   box-shadow: 0 20px 40px rgb(0, 0, 0, 0.3);
 }

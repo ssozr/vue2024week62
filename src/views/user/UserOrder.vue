@@ -1,6 +1,6 @@
 <template>
-    <div class="container">
-      <table class="table">
+  <div class="container">
+    <table class="table">
       <thead>
         <tr>
           <th>購買時間</th>
@@ -18,7 +18,9 @@
           <td>
             <ul class="list-unstyled">
               <li v-for="(product, i) in item.products" :key="i">
-                {{ product.product.title }}*{{ product.qty }}={{ product.total }}
+                {{ product.product.title }}*{{ product.qty }}={{
+                  product.total
+                }}
               </li>
             </ul>
           </td>
@@ -27,7 +29,15 @@
           </td>
           <td>
             <div class="form-check form-switch">
-              <input class="form-check-input" type="checkbox" role="switch" id="item.id" :disabled="paidDisabled" :checked="item.is_paid" @click="upDataPaid(item)">
+              <input
+                class="form-check-input"
+                type="checkbox"
+                role="switch"
+                id="item.id"
+                :disabled="paidDisabled"
+                :checked="item.is_paid"
+                @click="upDataPaid(item)"
+              />
               <label class="form-check-label" :for="item.id">
                 <p v-if="item.is_paid">已付款</p>
                 <p v-else>未付款</p>
@@ -35,8 +45,20 @@
             </div>
           </td>
           <td>
-          <button type="button" class="btn btn-outline-primary" @click="opOrderModal(item)">檢視</button>
-          <button type="button" class="btn btn-outline-primary" @click="opDelModal(item.id)">刪除</button>
+            <button
+              type="button"
+              class="btn btn-primary"
+              @click="opOrderModal(item)"
+            >
+              檢視
+            </button>
+            <button
+              type="button"
+              class="btn btn-primary"
+              @click="opDelModal(item.id)"
+            >
+              刪除
+            </button>
           </td>
         </tr>
       </tbody>
@@ -46,8 +68,8 @@
     :pages="pagination"
     @change-page="changePage"
     ></Pagination> -->
-    <loading v-model:active="isLoading"/>
-    </div>
+    <loading v-model:active="isLoading" />
+  </div>
 
   <!--刪除 modal -->
   <div class="modal" tabindex="-1" id="delModal" ref="delModal">
@@ -55,14 +77,27 @@
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title">確認刪除?</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
         </div>
         <div class="modal-body">
           <p>訂單編號:{{ delModalId }}</p>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
-          <button type="button" @click="deleteOrder()" class="btn btn-primary">確定刪除</button>
+          <button
+            type="button"
+            class="btn btn-secondary"
+            data-bs-dismiss="modal"
+          >
+            取消
+          </button>
+          <button type="button" @click="deleteOrder()" class="btn btn-primary">
+            確定刪除
+          </button>
         </div>
       </div>
     </div>
@@ -73,7 +108,12 @@
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title">訂單編號{{ orderData.id }}</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
         </div>
         <div class="modal-body">
           <ul>
@@ -91,7 +131,7 @@
       </div>
     </div>
   </div>
-  </template>
+</template>
 
 <script>
 import axios from 'axios'
@@ -123,7 +163,10 @@ export default {
   },
   methods: {
     getOrders (page = 1) {
-      axios.get(`${VITE_APP_API_URL}/v2/api/${VITE_APP_API_NAME}/admin/orders/?page=${page}`)
+      axios
+        .get(
+          `${VITE_APP_API_URL}/v2/api/${VITE_APP_API_NAME}/admin/orders/?page=${page}`
+        )
         .then((res) => {
           this.orders = res.data.orders
           this.pagination = res.data.pagination
@@ -141,7 +184,10 @@ export default {
     },
     deleteOrder () {
       const id = this.delModalId
-      axios.delete(`${VITE_APP_API_URL}/v2/api/${VITE_APP_API_NAME}/admin/order/${id}`)
+      axios
+        .delete(
+          `${VITE_APP_API_URL}/v2/api/${VITE_APP_API_NAME}/admin/order/${id}`
+        )
         .then((res) => {
           Swal.fire(`${res.data.message}`)
           this.getOrders()
@@ -160,7 +206,11 @@ export default {
       const paid = {
         is_paid: !item.is_paid
       }
-      axios.put(`${VITE_APP_API_URL}/v2/api/${VITE_APP_API_NAME}/admin/order/${item.id}`, { data: paid })
+      axios
+        .put(
+          `${VITE_APP_API_URL}/v2/api/${VITE_APP_API_NAME}/admin/order/${item.id}`,
+          { data: paid }
+        )
         .then((res) => {
           Swal.fire(`${res.data.message}`)
           this.getOrders()
@@ -177,7 +227,13 @@ export default {
     },
     time (at) {
       const date = new Date(at * 1000)
-      const options = { year: 'numeric', month: 'numeric', day: 'numeric', hour: 'numeric', minute: 'numeric' }
+      const options = {
+        year: 'numeric',
+        month: 'numeric',
+        day: 'numeric',
+        hour: 'numeric',
+        minute: 'numeric'
+      }
       return date.toLocaleString('zh-TW', options)
     }
   },

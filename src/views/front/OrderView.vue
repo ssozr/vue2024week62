@@ -3,7 +3,7 @@
     <div class="container mb-15">
       <div class="row">
         <div class="d-md-flex justify-content-center">
-          <ul class="order-progress pt-4 col-md-6">
+          <ul class="order-progress ps-0 pt-4 col-md-6">
             <!-- 流程 -->
             <li class="active">訂單確認</li>
             <li :class="{ active: num >= 2 }">填寫資料</li>
@@ -12,99 +12,94 @@
         </div>
       </div>
       <div class="row">
-        <v-form v-slot="{ errors }" @submit="onSubmit()">
+        <VForm v-slot="{ errors }" @submit="onSubmit()">
           <div class="row" v-if="num === 1">
             <!-- 購物車資訊 -->
-            <h2 class="text-center">訂單確認</h2>
+            <h2 class="text-center mb-4">訂單確認</h2>
             <div class="row justify-content-center">
               <div class="col-6">
                 <table class="table align-middle d-lg-table d-none col-12">
-                <thead>
-                  <tr class="text-center">
-                    <th scope="col">課程名稱</th>
-                    <th scope="col">授課老師</th>
-                    <th scope="col">總課程數</th>
-                    <th scope="col">購買數量</th>
-                    <th scope="col">價格</th>
-                    <th></th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr
-                    v-for="(item, i) in cartData.carts"
-                    :key="i"
-                    class="text-center"
-                  >
-                    <td>
-                      <h2 class="fs-6 mb-0">{{ item.product.title }}</h2>
-                    </td>
-                    <td>{{ item.product.unit }}</td>
-                    <td>{{ item.product.origin_price * item.qty }}堂</td>
-                    <td>
-                      <div class="dropdown">
+                  <thead>
+                    <tr class="text-center">
+                      <th class="col">課程名稱</th>
+                      <th class="col">授課老師</th>
+                      <th class="col">總課程數</th>
+                      <th class="col">購買數量</th>
+                      <th class="col">價格</th>
+                      <th class="col"></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr
+                      v-for="(item, i) in cartData.carts"
+                      :key="i"
+                      class="text-center"
+                    >
+                      <td>
+                        <h2 class="fs-6 mb-0">{{ item.product.title }}</h2>
+                      </td>
+                      <td>{{ item.product.unit }}</td>
+                      <td>{{ item.product.origin_price * item.qty }}堂</td>
+                      <td>
+                        <div class="dropdown">
+                          <button
+                            class="btn btn-secondary dropdown-toggle"
+                            type="button"
+                            id="dropdownMenuButton1"
+                            data-bs-toggle="dropdown"
+                            aria-expanded="false"
+                          >
+                            {{ item.qty }}
+                          </button>
+                          <ul
+                            class="dropdown-menu"
+                            aria-labelledby="dropdownMenuButton1"
+                          >
+                            <li v-for="(num, i) in 20" :key="i">
+                              <a
+                                @click="changeQty(num, item.id)"
+                                class="dropdown-item"
+                                >{{ num }}</a
+                              >
+                            </li>
+                          </ul>
+                        </div>
+                      </td>
+                      <td>{{ formatNumber(item.total) }}</td>
+                      <td>
                         <button
-                          class="btn btn-secondary dropdown-toggle"
                           type="button"
-                          id="dropdownMenuButton1"
-                          data-bs-toggle="dropdown"
-                          aria-expanded="false"
+                          class="btn rounded-pill"
+                          @click="openDelModal(item)"
                         >
-                          {{ item.qty }}
+                        <span class="material-symbols-outlined text-black d-flex">
+close
+</span>
                         </button>
-                        <ul
-                          class="dropdown-menu"
-                          aria-labelledby="dropdownMenuButton1"
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+                <div class="text-end d-none d-lg-block">
+                  <h2
+                          class=" border-3 my-6 fs-6 fw-bold"
                         >
-                          <li v-for="(num, i) in 20" :key="i">
-                            <a
-                              @click="changeQty(num, item.id)"
-                              class="dropdown-item"
-                              >{{ num }}</a
-                            >
-                          </li>
-                        </ul>
-                      </div>
-                    </td>
-                    <td>{{ formatNumber(item.total) }}</td>
-                    <td>
-                      <button
-                        type="button"
-                        class="btn btn-primary rounded-pill"
-                        @click="openDelModal(item)"
-                      >
-                        刪除
-                      </button>
-                    </td>
-                  </tr>
-                  <tr class="text-center">
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td class="align-bottom">
-                      <h2
-                        class="border-bottom border-primary border-3 mb-0 fs-6"
-                      >
-                        總金額:NT
-                        <span class="ms-1">{{
-                          formatNumber(cartData.total)
-                        }}</span>
-                      </h2>
-                      <button
-              class="btn btn-primary rounded-pill mt-3"
-              type="button"
-              v-if="num === 1"
-              @click="nextBtn"
-            >
-              下一步
-            </button>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
+                          總金額 : NT
+                          <span class="ms-1">{{
+                            formatNumber(cartData.total)
+                          }}</span>
+                        </h2>
+                        <button
+                          class="btn btn-primary rounded-pill"
+                          type="button"
+                          v-if="num === 1"
+                          @click="nextBtn"
+                        >
+                          下一步
+                        </button>
+                </div>
               </div>
-              <div class="row d-lg-none my-15 justify-content-center">
+              <div class="row d-lg-none my-4 justify-content-center">
                 <div class="col-md-8">
                   <ul
                     v-for="(item, i) in cartData.carts"
@@ -139,13 +134,13 @@
                       }}</span>
                     </h2>
                     <button
-              class="btn btn-primary rounded-pill mt-3"
-              type="button"
-              v-if="num === 1"
-              @click="nextBtn"
-            >
-              下一步
-            </button>
+                      class="btn btn-primary rounded-pill mt-3"
+                      type="button"
+                      v-if="num === 1"
+                      @click="nextBtn"
+                    >
+                      下一步
+                    </button>
                   </div>
                 </div>
               </div>
@@ -155,13 +150,8 @@
             <!-- 資料填寫 -->
             <div class="mb-3 col-md-6">
               <!-- 姓名 -->
-              <label for="name" class="form-label"
-                >*姓名:
-                <span v-if="errors['姓名']" class="text-danger">{{
-                  errors["姓名"]
-                }}</span></label
-              >
-              <v-field
+              <label for="name" class="form-label">*姓名:</label>
+              <VField
                 id="name"
                 name="姓名"
                 type="text"
@@ -172,21 +162,16 @@
                 v-model="userData.user.name"
                 @click="disabledBtn()"
               >
-              </v-field>
-              <error-message
+              </VField>
+              <VErrorMessage
                 name="姓名"
                 class="invalid-feedback"
-              ></error-message>
+              ></VErrorMessage>
             </div>
             <div class="mb-3 col-md-6">
               <!-- 信箱 -->
-              <label for="email" class="form-label"
-                >*信箱:
-                <span v-if="errors['email']" class="text-danger">{{
-                  errors.email
-                }}</span></label
-              >
-              <v-field
+              <label for="email" class="form-label">*信箱:</label>
+              <VField
                 id="email"
                 name="email"
                 type="email"
@@ -196,21 +181,16 @@
                 rules="email|required"
                 v-model="userData.user.email"
               >
-              </v-field>
-              <error-message
+              </VField>
+              <VErrorMessage
                 name="email"
                 class="invalid-feedback"
-              ></error-message>
+              ></VErrorMessage>
             </div>
             <div class="mb-3 col-md-6">
               <!-- 電話 -->
-              <label for="phone" class="form-label"
-                >*手機號碼:
-                <span v-if="errors['電話']" class="text-danger">{{
-                  errors["電話"]
-                }}</span></label
-              >
-              <v-field
+              <label for="phone" class="form-label">*手機號碼: </label>
+              <VField
                 id="phone"
                 name="電話"
                 type="tel"
@@ -220,21 +200,16 @@
                 :rules="isPhone"
                 v-model="userData.user.phone"
               >
-              </v-field>
-              <error-message
+              </VField>
+              <VErrorMessage
                 name="電話"
                 class="invalid-feedback"
-              ></error-message>
+              ></VErrorMessage>
             </div>
             <div class="mb-3 col-md-6">
               <!-- 付款方式 -->
-              <label for="payment" class="form-label"
-                >*付款方式:
-                <span v-if="errors['付款方式']" class="text-danger">{{
-                  errors["付款方式"]
-                }}</span></label
-              >
-              <v-field
+              <label for="payment" class="form-label">*付款方式:</label>
+              <VField
                 id="phone"
                 name="付款方式"
                 type="select"
@@ -253,19 +228,16 @@
                   <option value="ATM">ATM</option>
                   <option value="電信繳費">電信繳費</option>
                 </select>
-              </v-field>
-              <error-message
+              </VField>
+              <VErrorMessage
                 name="付款方式"
                 class="invalid-feedback"
-              ></error-message>
+              ></VErrorMessage>
             </div>
             <div class="input-group mb-3">
               <!-- 地址 -->
               <label style="width: 100%" for="地址" class="form-label"
-                >*地址:
-                <span v-if="errors['地址']" class="text-danger">{{
-                  errors.地址
-                }}</span></label
+                >*地址:</label
               >
               <select
                 class="btn btn-secondary"
@@ -297,7 +269,7 @@
                   {{ areaName.AreaName }}
                 </option>
               </select>
-              <v-field
+              <VField
                 id="地址"
                 name="地址"
                 type="text"
@@ -308,11 +280,11 @@
                 v-model="address.content"
                 :disabled="!address.areaName"
               >
-              </v-field>
-              <error-message
+              </VField>
+              <VErrorMessage
                 name="地址"
                 class="invalid-feedback"
-              ></error-message>
+              ></VErrorMessage>
             </div>
             <div class="input-group mb-3">
               <!-- 留言 -->
@@ -336,7 +308,7 @@
                   :disabled="coupon.couponJudge"
                 />
                 <button
-                  class="btn btn-outline-secondary"
+                  class="btn btn-outline-light text-black"
                   type="button"
                   @click="couponBtn()"
                   :disabled="coupon.couponJudge"
@@ -375,7 +347,7 @@
               </div>
             </div>
           </div>
-          <div class="text-center mt-6 btn-list">
+          <div class="col-md-6 offset-md-3 text-end mt-6 btn-list">
             <button
               class="btn btn-secondary rounded-pill me-3"
               type="button"
@@ -395,11 +367,17 @@
               送出訂單
             </button>
           </div>
-        </v-form>
+        </VForm>
         <div class="row" v-if="num === 3">
           <div class="d-flex justify-content-center">
             <ul class="text-center">
-              <li><h2 class="text-center"><button type="button" class="btn btn-primary fs-3"><RouterLink to="/">繼續購物</RouterLink></button></h2></li>
+              <li>
+                <h2 class="text-center">
+                  <button type="button" class="btn btn-primary fs-3">
+                    <RouterLink to="/">繼續購物</RouterLink>
+                  </button>
+                </h2>
+              </li>
               <li>付款完成</li>
               <li>客服人員將會在三天內與您電話連絡</li>
               <li>若有任何問題，皆可連絡客服</li>
@@ -692,7 +670,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .order-progress {
   height: 90px;
 }

@@ -4,7 +4,9 @@
       <div class="border-bottom">
         <div class="container">
           <div class="header row">
-            <div class="d-flex justify-content-between py-4 m-0 align-items-center">
+            <div
+              class="d-flex justify-content-between py-4 m-0 align-items-center"
+            >
               <div>
                 <RouterLink to="/" @click="changeBtn()"
                   ><img
@@ -21,15 +23,26 @@
                 <span class="material-symbols-outlined text-light"> menu </span>
               </button>
               <div class="d-none d-md-block">
-                <ul class="d-flex m-0 p-0 header-list">
+                <ul class="d-flex m-0 p-0 header-list align-items-center">
                   <li class="me-6">
-                    <RouterLink to="/articles" :class="{ active: isActive('/articles') }">文章分享</RouterLink>
+                    <RouterLink
+                      to="/articles"
+                      :class="{ active: isActive('/articles') }"
+                      >文章分享</RouterLink
+                    >
                   </li>
                   <li class="me-6">
-                    <RouterLink to="/about" :class="{ active: isActive('/about') }" >關於我們</RouterLink>
+                    <RouterLink
+                      to="/about"
+                      :class="{ active: isActive('/about') }"
+                      >關於我們</RouterLink
+                    >
                   </li>
                   <li class="me-6">
-                    <RouterLink to="/products" @click="searchOff" :class="{ active: isActive('/products') }"
+                    <RouterLink
+                      to="/products"
+                      @click="searchOff"
+                      :class="{ active: isActive('/products') }"
                       >課程列表</RouterLink
                     >
                   </li>
@@ -37,7 +50,8 @@
                     <RouterLink to="/cart"
                       ><span class="material-symbols-outlined">
                         shopping_cart </span
-                      ><span v-if="carts.length"
+                      ><span
+                        v-if="carts.length"
                         class="badge rounded-pill bg-danger position-absolute bottom-50"
                         >{{ carts.length }}</span
                       ></RouterLink
@@ -103,7 +117,7 @@
             </li>
             <li><a href="tel:0912345678">客服電話：0912345678</a></li>
           </ul>
-          <p class="f-7 text-primary mb-8 text-center">
+          <p class="f-7 mb-8 text-center">
             正視心靈 © 2023 Copyright
           </p>
         </div>
@@ -148,7 +162,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .active {
   font-weight: bold; /* 活动链接的样式 */
 }

@@ -1,7 +1,6 @@
 import router from '@/router'
 import { defineStore } from 'pinia'
 import axios from 'axios'
-import Swal from 'sweetalert2'
 
 const { VITE_APP_API_URL, VITE_APP_API_NAME } = import.meta.env
 
@@ -9,10 +8,11 @@ const cartStore = defineStore('cart', {
   state: () => {
     return {
       carts: [],
-      total: 0,
+      total: false,
       final_total: 0,
       goCart: false,
-      addCartBtn: false
+      addCartBtn: false,
+      toast: false
     }
   },
   actions: {
@@ -27,8 +27,9 @@ const cartStore = defineStore('cart', {
           alert(err.data.message).error(err)
         })
     },
-    addCart (item, qtyNum) {
+    addCart (item, qtyNum, openToast) {
       this.addCartBtn = true
+      this.toast = false
       const data = {
         product_id: item.id,
         qty: qtyNum
@@ -36,8 +37,8 @@ const cartStore = defineStore('cart', {
       axios.post(`${VITE_APP_API_URL}/v2/api/${VITE_APP_API_NAME}/cart`, { data })
         .then((res) => {
           if (this.goCart === false) {
+            openToast()
             this.addCartBtn = false
-            Swal.fire(`${res.data.message}`)
             this.getCartDataPinia()
           } else {
             this.goCart = false

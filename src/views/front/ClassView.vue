@@ -1,81 +1,175 @@
 <template>
-    <div class="container mt-30 mb-15 teacher" data-aos="fade-right">
-      <div class="row">
-        <div class="text-center p-0 mb-10 col-8 offset-2">
-          <img :src="classData.imagesUrl" class="imgI" alt="課程示意圖">
+  <div class="container mt-30 mb-15 teacher" data-aos="fade-right">
+    <div class="row">
+      <div class="text-center p-0 mb-10 col-8 offset-2">
+        <img :src="classData.imagesUrl" class="imgI" alt="課程示意圖" />
+      </div>
+      <div class="mb-10">
+        <h2 class="border-bottom border-primary border-3 pb-3">
+          {{ classData.title }}
+          <span class="fs-6 mt-lg-0 mt-3 ps-lg-5 d-inline-block">{{
+            classData.description
+          }}</span>
+        </h2>
+      </div>
+      <div class="row flex-lg-row-reverse">
+        <div class="col-lg-4 text-center">
+          <img
+            :src="classData.imageUrl"
+            alt="老師照片"
+            class="card-img rounded-circle mb-4"
+          />
+          <h3 class="mb-6 mb-lg-0">授課老師:{{ classData.unit }}</h3>
         </div>
-        <div class="mb-10">
-          <h2 class="border-bottom border-primary border-3 pb-3">{{ classData.title }} <span class="fs-6 mt-lg-0 mt-3 ps-lg-5 d-inline-block">{{ classData.description }}</span></h2>
-        </div>
-        <div class="row flex-lg-row-reverse">
-          <div class="col-lg-4 text-center">
-            <img :src="classData.imageUrl" alt="老師照片" class="card-img rounded-circle mb-4">
-            <h3 class="mb-6 mb-lg-0">授課老師:{{ classData.unit }}</h3>
-          </div>
-          <div class="col-lg-8 d-flex flex-column justify-content-between">
-            <p class="fs-4 mb-lg-15 mb-8">{{ classData.content }}</p>
-            <div class="d-lg-flex text-lg-start text-center justify-content-between  align-items-end">
-              <ul class="p-0 m-0">
-                <li><p class="fs-4">課程堂數:<span class="ms-4">{{ classData.origin_price }}堂</span></p></li>
-                <li><p class="fs-4 m-0">課程總額:<span class="ms-4">NT${{ formatNumber(classData.price) }}</span></p></li>
-              </ul>
-              <div class="d-lg-flex mt-3">
-                <div class="d-flex justify-content-center mb-md-0 mb-3" >
-                  <button type="button" class="btn btn-primary me-3" @click="addCart(classData, qtyNum)" :disabled="addCartBtn">加入購物車</button>
-                <div class="dropdown" >
-                <button  class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                  {{ qtyNum }}
+        <div class="col-lg-8 d-flex flex-column justify-content-between">
+          <p class="fs-4 mb-lg-15 mb-8">{{ classData.content }}</p>
+          <div
+            class="d-lg-flex text-lg-start text-center justify-content-between align-items-end"
+          >
+            <ul class="p-0 m-0">
+              <li>
+                <p class="fs-4">
+                  課程堂數:<span class="ms-4"
+                    >{{ classData.origin_price }}堂</span
+                  >
+                </p>
+              </li>
+              <li>
+                <p class="fs-4 m-0">
+                  課程總額:<span class="ms-4"
+                    >NT${{ formatNumber(classData.price) }}</span
+                  >
+                </p>
+              </li>
+            </ul>
+            <div class="d-lg-flex mt-3">
+              <div class="d-flex justify-content-center mb-md-0 mb-3">
+                <button
+                  type="button"
+                  class="btn btn-primary me-3"
+                  @click="addCartData(classData, qtyNum)"
+                  :disabled="addCartBtn"
+                >
+                  加入購物車
                 </button>
-                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1" >
-                  <li v-for="(num, i) in 20" :key="i"><a  class="dropdown-item" @click="qty(num)">{{ num }}</a></li>
-                </ul>
+                <div class="dropdown">
+                  <button
+                    class="btn btn-secondary dropdown-toggle"
+                    type="button"
+                    id="dropdownMenuButton1"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false"
+                  >
+                    {{ qtyNum }}
+                  </button>
+                  <ul
+                    class="dropdown-menu"
+                    aria-labelledby="dropdownMenuButton1"
+                  >
+                    <li v-for="(num, i) in 20" :key="i">
+                      <a class="dropdown-item" @click="qty(num)">{{ num }}</a>
+                    </li>
+                  </ul>
                 </div>
               </div>
-                <button  type="button" class="btn btn-primary ms-6" @click="changeGoCart(classData, qty)">立即上課</button>
-              </div>
+              <button
+                type="button"
+                class="btn btn-primary ms-6"
+                @click="changeGoCart(classData, qty)"
+              >
+                立即上課
+              </button>
             </div>
           </div>
         </div>
       </div>
     </div>
-    <div class="my-15 my-md-30 container" data-aos="fade-right">
-      <h2 class="border-bottom border-primary border-3 pb-3">相關課程</h2>
-      <SwiperClassVue
-      :other-class-data="otherClassData" @chang-page="changPage" />
-    </div>
+  </div>
+  <div class="my-15 my-md-30 container" data-aos="fade-right">
+    <h2 class="border-bottom border-primary border-3 pb-3">相關課程</h2>
+    <SwiperClassVue
+      :other-class-data="otherClassData"
+      @chang-page="changPage"
+    />
+  </div>
 
-    <div class="modal" tabindex="-1" ref="addModal">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title">選擇購買數量</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+  <div class="modal" tabindex="-1" ref="addModal">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">選擇購買數量</h5>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
+        </div>
+        <div class="modal-body">
+          <div class="dropdown">
+            購買數量:
+            <button
+              class="btn btn-secondary dropdown-toggle"
+              type="button"
+              id="dropdownMenuButton1"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+              {{ qtyNum }}
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+              <li v-for="(num, i) in 20" :key="i">
+                <a class="dropdown-item" @click="qty(num)">{{ num }}</a>
+              </li>
+            </ul>
           </div>
-          <div class="modal-body">
-            <div class="dropdown" >
-                購買數量:
-                <button  class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                  {{ qtyNum }}
-                </button>
-                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1" >
-                  <li v-for="(num, i) in 20" :key="i"><a  class="dropdown-item" @click="qty(num)">{{ num }}</a></li>
-                </ul>
-              </div>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
-            <button type="button" class="btn btn-primary" @click="addCart(classData, qtyNum),hideAddModal()">加入購物車</button>
-          </div>
+        </div>
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="btn btn-secondary"
+            data-bs-dismiss="modal"
+          >
+            取消
+          </button>
+          <button
+            type="button"
+            class="btn btn-primary"
+            @click="addCartData(classData, qtyNum), hideAddModal()"
+          >
+            加入購物車
+          </button>
         </div>
       </div>
     </div>
-  </template>
+  </div>
+  <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 5">
+    <div
+      id="liveToast"
+      class="toast hide"
+      ref="myToast"
+      role="alert"
+      aria-live="assertive"
+      aria-atomic="true"
+    >
+      <div class="toast-header bg-secondary">
+        <strong class="me-auto text-white">已加入購物車</strong>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="toast"
+          aria-label="Close"
+        ></button>
+      </div>
+    </div>
+  </div>
+</template>
 
 <script>
 import cartStore from '@/stores/cart'
 import { mapActions, mapState } from 'pinia'
 import SwiperClassVue from '@/components/SwiperClass.vue'
-import { Modal } from 'bootstrap'
+import { Modal, Toast } from 'bootstrap'
 import axios from 'axios'
 const { VITE_APP_API_URL, VITE_APP_API_NAME } = import.meta.env
 export default {
@@ -88,7 +182,7 @@ export default {
       category: '',
       addModal: '',
       qtyNum: 1,
-      mToast: ''
+      myToast: ''
     }
   },
   components: {
@@ -96,23 +190,27 @@ export default {
   },
   methods: {
     getClassData () {
-      axios.get(`${VITE_APP_API_URL}/v2/api/${VITE_APP_API_NAME}/product/${this.id}`)
+      axios
+        .get(
+          `${VITE_APP_API_URL}/v2/api/${VITE_APP_API_NAME}/product/${this.id}`
+        )
         .then((res) => {
           this.classData = res.data.product
           this.category = res.data.product.category
           this.getOtherClassData()
         })
-        .catch(() => {
-        })
+        .catch(() => {})
     },
     getOtherClassData () {
-      axios.get(`${VITE_APP_API_URL}v2/api/${VITE_APP_API_NAME}/products/?category=${this.category}`)
+      axios
+        .get(
+          `${VITE_APP_API_URL}v2/api/${VITE_APP_API_NAME}/products/?category=${this.category}`
+        )
         .then((res) => {
           this.otherClassData = res.data.products
           this.filteredItems()
         })
-        .catch(() => {
-        })
+        .catch(() => {})
     },
     openAddModal () {
       this.addModal.show()
@@ -148,17 +246,24 @@ export default {
     },
     addCartBtnChange () {
       this.addCarBtn = true
+    },
+    addCartData (classData, qtyNum) {
+      this.addCart(classData, qtyNum, this.openToast)
+    },
+    openToast () {
+      this.myToast.show()
     }
   },
   computed: {
-    ...mapState(cartStore, ['addCartBtn'])
+    ...mapState(cartStore, ['addCartBtn']),
+    ...mapState(cartStore, ['toast'])
   },
   mounted () {
-    console.log(this.$refs)
     const { id } = this.$route.params
     this.id = id
     this.getClassData()
     this.addModal = new Modal(this.$refs.addModal)
+    this.myToast = new Toast(this.$refs.myToast)
   }
 }
 </script>
