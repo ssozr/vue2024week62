@@ -1,6 +1,6 @@
 <template>
   <swiper
-    :slidesPerView="3"
+    :slidesPerView="1"
     :spaceBetween="30"
     :pagination="{
       clickable: true,
@@ -13,6 +13,11 @@
     :modules="modules"
     class="mySwiper"
     style="height: 100%;"
+    :breakpoints="{
+      768: {
+        slidesPerView: 3
+      }
+    }"
   >
     <swiper-slide
       v-for="(product, i) in otherClassData"
@@ -125,10 +130,15 @@ body {
   height: 268px;
   width: 268px;
   @media (max-width: 768px) {
-    height: 150px;
+    height: 134px;
+    width: 134px;
   }
 }
 .product {
   border: 1px solid #F8C343;
+}
+
+:deep(.swiper-pagination-bullet) {
+    background-color: #F79E1B !important; /* 使用更具体的选择器，并添加 !important 提高优先级 */
 }
 </style>
