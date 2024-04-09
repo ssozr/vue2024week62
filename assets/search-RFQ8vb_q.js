@@ -1,1 +1,0 @@
-import{D as a,E as r}from"./index-J6KPnWDP.js";const s=a("search",{state:()=>({categoryData:""}),actions:{search(t){this.categoryData=t,r.push("/products")},searchOff(){this.categoryData=""}}});export{s};
