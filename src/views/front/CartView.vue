@@ -25,7 +25,7 @@
               <th>
                 <button
                   type="button"
-                  class="btn btn-secondary rounded-pill"
+                  class="btn btn-outline-light rounded-pill"
                   @click="openDelAllModal()"
                 >
                   清空購物車
@@ -40,7 +40,7 @@
               class="text-center"
             >
               <td>
-                <RouterLink :to="`/class/${item.product.id}`"
+                <RouterLink :to="`/product/${item.product.id}`"
                   ><h2 class="fs-5">{{ item.product.title }}</h2></RouterLink
                 >
               </td>
@@ -51,7 +51,7 @@
                 <div class="dropdown">
                   <button
                     :disabled="disabled"
-                    class="btn btn-secondary dropdown-toggle"
+                    class="btn btn-outline-light dropdown-toggle"
                     type="button"
                     id="dropdownMenuButton1"
                     data-bs-toggle="dropdown"
@@ -78,10 +78,12 @@
               <td>
                 <button
                   type="button"
-                  class="btn btn-secondary rounded-pill"
+                  class="btn rounded-pill"
                   @click="openDelModal(item)"
                 >
-                  刪除
+                <span class="material-symbols-outlined d-flex text-black">
+close
+</span>
                 </button>
               </td>
             </tr>
@@ -92,7 +94,7 @@
               <td></td>
               <td></td>
               <td class="align-bottom">
-                <h2 class="border-bottom border-primary border-3 mb-0 fs-6">
+                <h2 class="border-bottom border-secondary border-3 mb-0 fs-6">
                   總金額:NT
                   <span class="ms-1">{{ formatNumber(cartData.total) }}</span>
                 </h2>
@@ -112,7 +114,7 @@
         <div class="d-flex justify-content-end">
           <button
             type="button"
-            class="btn btn-secondary rounded-pill col-4 mb-3"
+            class="btn btn-outline-light rounded-pill col-4 mb-3"
             @click="openDelAllModal()"
           >
             清空購物車
@@ -125,10 +127,9 @@
         >
           <li>
             <div class="d-flex justify-content-between align-items-center">
-              <RouterLink :to="`/class/${item.product.id}`"
-                ><h2 class="fs-6 fw-blod">
+              <RouterLink :to="`/product/${item.product.id}`"
+                ><h2 class="fs-6 fw-bold">
                   {{ item.product.title }}
-                  <span class="fs-7">單價:{{ item.product.price }}</span>
                 </h2></RouterLink
               >
               <button
@@ -141,21 +142,22 @@ close
 </span>
               </button>
             </div>
+            <p class="mb-3">單價:{{ item.product.price }}</p>
             <div class="d-flex align-items-center justify-content-between mb-3">
               <div>總數:{{ item.product.origin_price * item.qty }}堂</div>
               <div class="dropdown d-flex">
                 次數:
                 <button
                   :disabled="disabled"
-                  class="btn btn-secondary dropdown-toggle py-0 ms-3"
+                  class="btn btn-outline-light dropdown-toggle py-0 ms-3"
                   type="button"
-                  id="dropdownMenuButton1"
+                  id="dropdownMenuButton2"
                   data-bs-toggle="dropdown"
                   aria-expanded="false"
                 >
                   {{ item.qty }}
                 </button>
-                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
                   <li v-for="(num, i) in 20" :key="i">
                     <a
                       @click="changeQty(num, item.id, item.product_id)"
@@ -170,7 +172,7 @@ close
           </li>
         </ul>
         <div class="d-flex justify-content-between">
-          <h2 class="border-bottom border-primary border-3 mb-0 fs-4">
+          <h2 class="border-bottom border-secondary border-3 mb-0 fs-4">
             總金額:NT
             <span class="ms-1">{{ formatNumber(cartData.total) }}</span>
           </h2>
@@ -275,6 +277,7 @@ export default {
         .get(`${VITE_APP_API_URL}/v2/api/${VITE_APP_API_NAME}/cart`)
         .then((res) => {
           this.cartData = res.data.data
+          console.log(this.cartData)
         })
         .catch((err) => {
           alert(err.data.message).error(err)

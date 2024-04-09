@@ -22,7 +22,7 @@
               </div>
             </div>
             <div class="card-body bg-primary">
-              <h5 class="card-title mt-6 text-center mb-8 fw-bold">
+              <h5 class="card-title my-4 text-center fw-bold">
                 {{ classData[0].unit }}
               </h5>
               <p class="card-text mb-6 fs-6">
@@ -61,7 +61,7 @@
               </div>
             </div>
             <div class="card-body bg-primary">
-              <h5 class="card-title mt-6 text-center mb-8 fw-bold">
+              <h5 class="card-title my-4 text-center fw-bold">
                 {{ classData[1].unit }}
               </h5>
               <p class="card-text mb-6 fs-6">

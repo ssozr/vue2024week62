@@ -40,7 +40,7 @@
         :class="{ 'd-none': pagination.total_pages === 1 }"
         :pagination="pagination"
         @change-page="changePage"
-      ></Pagination>
+      />
     </div>
   </div>
 </template>

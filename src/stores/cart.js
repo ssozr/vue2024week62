@@ -35,7 +35,7 @@ const cartStore = defineStore('cart', {
         qty: qtyNum
       }
       axios.post(`${VITE_APP_API_URL}/v2/api/${VITE_APP_API_NAME}/cart`, { data })
-        .then((res) => {
+        .then(() => {
           if (this.goCart === false) {
             openToast()
             this.addCartBtn = false

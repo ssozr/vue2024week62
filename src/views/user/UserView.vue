@@ -29,7 +29,13 @@ export default {
       axios
         .post(`${VITE_APP_API_URL}/v2/api/user/check`)
         .then((res) => {
-          this.show = true
+          if (res.data.success === true) {
+            this.show = true
+          } else {
+            alert('請先登入')
+            this.$router.push('/login')
+          }
+          console.log(res.data.success)
         })
         .catch(() => {
           alert('請先登入')

@@ -63,7 +63,7 @@
         </tr>
       </tbody>
     </table>
-    <Pagination :pagination="pagination" @change-page="changePage"></Pagination>
+    <Pagination :pagination="pagination" @change-page="changePage"/>
     <!-- <Pagination
     :pages="pagination"
     @change-page="changePage"

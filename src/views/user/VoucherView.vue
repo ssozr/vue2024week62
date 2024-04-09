@@ -41,7 +41,7 @@
         </tr>
       </tbody>
     </table>
-    <Pagination :pagination="pagination" @change-page="changePage"></Pagination>
+    <Pagination :pagination="pagination" @change-page="changePage"/>
     <loading v-model:active="isLoading" />
   </div>
 

@@ -47,7 +47,7 @@
         </tr>
       </tbody>
     </table>
-    <Pagination :pagination="pagination" @change-page="changePage"></Pagination>
+    <Pagination :pagination="pagination" @change-page="changePage"/>
     <Loading v-model:active="isLoading" />
   </div>
   <!-- Modal -->
@@ -92,7 +92,7 @@
                 <input type="text" v-model="images" />
                 <button
                   type="button"
-                  class="btn btn-outline-primary btn-sm d-block w-100"
+                  class="btn btn-secondary btn-sm d-block w-100"
                   @click="addImageUrl()"
                 >
                   新增圖片
@@ -104,7 +104,7 @@
                   <button
                     type="button"
                     @click="removeImageUrl(i)"
-                    class="btn btn-outline-danger btn-sm d-block w-100"
+                    class="btn btn-danger btn-sm d-block w-100"
                   >
                     刪除圖片
                   </button>
@@ -215,7 +215,7 @@
         <div class="modal-footer">
           <button
             type="button"
-            class="btn btn-outline-secondary"
+            class="btn btn-light"
             data-bs-dismiss="modal"
           >
             取消

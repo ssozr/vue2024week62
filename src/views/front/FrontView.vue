@@ -82,13 +82,15 @@
                 class="fs-6 text-center mb-8 position-relative"
                 @click="changeBtn()"
               >
-                <RouterLink to="/cart"
-                  ><span class="material-symbols-outlined"> shopping_cart </span
-                  ><span
-                    class="badge rounded-pill bg-danger position-absolute bottom-50"
-                    >{{ carts.length }}</span
-                  ></RouterLink
-                >
+              <RouterLink to="/cart"
+                      ><span class="material-symbols-outlined">
+                        shopping_cart </span
+                      ><span
+                        v-if="carts.length"
+                        class="badge rounded-pill bg-danger position-absolute bottom-50"
+                        >{{ carts.length }}</span
+                      ></RouterLink
+                    >
               </li>
             </ul>
           </div>

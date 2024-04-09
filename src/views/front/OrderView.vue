@@ -13,7 +13,7 @@
       </div>
       <div class="row">
         <VForm v-slot="{ errors }" @submit="onSubmit()">
-          <div class="row" v-if="num === 1">
+          <div v-if="num === 1">
             <!-- 購物車資訊 -->
             <h2 class="text-center mb-4">訂單確認</h2>
             <div class="row justify-content-center">
@@ -102,16 +102,15 @@ close
               <div class="row d-lg-none my-4 justify-content-center">
                 <div class="col-md-8">
                   <ul
-                    v-for="(item, i) in cartData.carts"
-                    :key="i"
-                    class="border-bottom pb-3 border-primary"
+                    class="border-bottom pb-3 border-primary ps-0"
                   >
-                    <li>
+                    <li  v-for="(item, i) in cartData.carts"
+                    :key="i" class="mb-4">
                       <div
-                        class="d-flex justify-content-between align-items-center mb-3"
+                        class="d-flex justify-content-between align-items-center"
                       >
                         <RouterLink :to="`/class/${item.product.id}`"
-                          ><h2 class="fs-6">
+                          ><h2 class="fs-6 fw-bold">
                             {{ item.product.title }}
                           </h2></RouterLink
                         >
@@ -122,13 +121,13 @@ close
                         <div>
                           堂數:{{ item.product.origin_price * item.qty }}
                         </div>
-                        <div>此課程共:NT${{ formatNumber(item.total) }}</div>
+                        <div>小計 NT${{ formatNumber(item.total) }}</div>
                       </div>
                     </li>
                   </ul>
                   <div class="text-end">
                     <h2 class="mb-0 fs-6">
-                      總金額:NT
+                      總金額NT
                       <span class="ms-1">{{
                         formatNumber(cartData.total)
                       }}</span>

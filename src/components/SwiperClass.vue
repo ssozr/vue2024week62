@@ -40,7 +40,7 @@
             </div>
             <div class="card-body text-center p-0 mt-5">
               <h2 class="card-title fs-4">{{ product.title }}</h2>
-              <div class="mt-8 mb-6">
+              <div class="mt-3 mb-6">
                 <p class="card-text fs-6">{{ product.description }}</p>
               </div>
             </div>

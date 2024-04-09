@@ -60,7 +60,7 @@
       <div class="modal-content border-0">
         <div class="modal-header bg-dark text-white">
           <h5 id="productModalLabel" class="modal-title">
-            <span>新增產品</span>
+            <span>新增文章</span>
           </h5>
           <button
             type="button"
@@ -202,12 +202,12 @@
       </div>
     </div>
   </div>
-  <Loading v-model:active="isLoading"></Loading>
+  <Loading v-model:active="isLoading"/>
   <Pagination
     :pagination="pagination"
     @change-page="changePage"
     v-if="pagination.total_pages >= 2"
-  ></Pagination>
+  />
 </template>
 
 <script>

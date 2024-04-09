@@ -85,7 +85,7 @@
       </h2>
     </div>
     <div class="row">
-      <swiper class="d-md-none" :class-data="classData"></swiper>
+      <swiper class="d-md-none" :class-data="classData"/>
     </div>
     <div class="row teacher">
       <div class="col-md-6 p-0 mb-6 mb-md-0">
@@ -95,7 +95,6 @@
           >
             <div
               class="card border-primary border-3 bg-primary"
-              style="width: 362px"
             >
               <div class="bg-primary border-primary">
                 <div
@@ -111,7 +110,7 @@
                 </div>
               </div>
               <div class="card-body bg-primary p-0 text-center">
-                <h5 class="card-title mt-6 text-center mb-8 fz-18">
+                <h5 class="card-title mt-6 text-center mb-8 fz-18 fw-bold">
                   {{ classData[0].unit }}
                 </h5>
                 <p class="card-text mb-6 fs-6">
@@ -137,7 +136,6 @@
           <RouterLink :to="`product/${classData[1].id}`">
             <div
               class="card border-primary border-3 bg-primary"
-              style="width: 362px"
             >
               <div class="bg-primary border-primary">
                 <div
@@ -153,7 +151,7 @@
                 </div>
               </div>
               <div class="card-body bg-primary p-0 text-center">
-                <h5 class="card-title mt-6 text-center mb-8 fz-18">
+                <h5 class="card-title mt-6 text-center mb-8 fz-18 fw-bold">
                   {{ classData[1].unit }}
                 </h5>
                 <p class="card-text mb-6 fs-6">
@@ -174,8 +172,8 @@
       </div>
     </div>
   </div>
-  <articleHome class="d-lg-block d-none"></articleHome>
-  <articleHomeRwd class="d-lg-none"></articleHomeRwd>
+  <articleHome class="d-lg-block d-none"/>
+  <articleHomeRwd class="d-lg-none"/>
   <div
     data-aos="fade-right"
     class="container-fluid bg-F7F3F0 pt-md-30 pt-15 pb-15 pb-md-30 fourth"

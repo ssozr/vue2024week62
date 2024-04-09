@@ -1,11 +1,11 @@
 <template>
   <div class="container mt-30 mb-15 teacher" data-aos="fade-right">
-    <div class="row">
+    <div class="row justify-content-center">
       <div class="text-center p-0 mb-10 col-8 offset-2">
         <img :src="classData.imagesUrl" class="imgI" alt="課程示意圖" />
       </div>
       <div class="mb-10">
-        <h2 class="border-bottom border-primary border-3 pb-3">
+        <h2 class="border-bottom border-primary border-3 pb-3 fw-bold">
           {{ classData.title }}
           <span class="fs-6 mt-lg-0 mt-3 ps-lg-5 d-inline-block">{{
             classData.description
@@ -22,7 +22,8 @@
           <h3 class="mb-6 mb-lg-0">授課老師:{{ classData.unit }}</h3>
         </div>
         <div class="col-lg-8 d-flex flex-column justify-content-between">
-          <p class="fs-4 mb-lg-15 mb-8">{{ classData.content }}</p>
+          <p class="fs-4 d-lg-block d-none mb-lg-15 mb-8">{{ classData.content }}</p>
+          <p class="fs-6 d-lg-none mb-lg-15 mb-8">{{ classData.content }}</p>
           <div
             class="d-lg-flex text-lg-start text-center justify-content-between align-items-end"
           >
@@ -42,8 +43,8 @@
                 </p>
               </li>
             </ul>
-            <div class="d-lg-flex mt-3">
-              <div class="d-flex justify-content-center mb-md-0 mb-3">
+            <div class="d-flex mt-3 justify-content-center">
+              <div class="d-flex justify-content-center">
                 <button
                   type="button"
                   class="btn btn-primary me-3"
@@ -54,7 +55,7 @@
                 </button>
                 <div class="dropdown">
                   <button
-                    class="btn btn-secondary dropdown-toggle"
+                    class="btn btn-outline-light dropdown-toggle"
                     type="button"
                     id="dropdownMenuButton1"
                     data-bs-toggle="dropdown"
@@ -71,14 +72,14 @@
                     </li>
                   </ul>
                 </div>
-              </div>
-              <button
+                <button
                 type="button"
-                class="btn btn-primary ms-6"
+                class="btn btn-primary ms-3"
                 @click="changeGoCart(classData, qty)"
               >
                 立即上課
               </button>
+              </div>
             </div>
           </div>
         </div>
@@ -109,7 +110,7 @@
           <div class="dropdown">
             購買數量:
             <button
-              class="btn btn-secondary dropdown-toggle"
+              class="btn btn-6F6F6F dropdown-toggle"
               type="button"
               id="dropdownMenuButton1"
               data-bs-toggle="dropdown"
